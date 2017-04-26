@@ -178,17 +178,16 @@
 		};
 
 		document.onkeyup = function (e) {
-		    var evento = window.event ? window.event : e;
+		    var key = (window.event || e).keyCode;
 
-		    if(evento.keyCode == 37 && direcao != 'd'){
+		    if ((key == 37 || key == 65) && direcao != 'd')
 		    	direcao = 'e';
-		    } else if (evento.keyCode == 38 && direcao != 'b'){
+		    else if ((key == 38 || key == 87) && direcao != 'b')
 		    	direcao = 'c';
-		    } else if (evento.keyCode == 39 && direcao != 'e'){
+		    else if ((key == 39 || key == 68) && direcao != 'e')
 		    	direcao = 'd';
-		    } else if (evento.keyCode == 40 && direcao != 'c'){
+		    else if ((key == 40 || key == 83) && direcao != 'c')
 		    	direcao = 'b';
-		    }
 		};
 
 		window.onload = inicializarJogo;
