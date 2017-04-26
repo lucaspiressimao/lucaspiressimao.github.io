@@ -46,7 +46,7 @@
 		var colunas = 10;
 		var direcao = 'd'; //c = cima / b = baixo / d = direita / e = esquerda
 		var snake = [];
-		var speed = 700;
+		var speed = 500;
 		var lin = 0
 		var col = 0
 		var fim = false;
@@ -147,8 +147,8 @@
 				pontos += 10;
 				comida = false;	
 				document.getElementById("pontuacao").innerText = pontos
-				if(speed > 300){
-					speed -= 30;
+				if(speed > 150){
+					speed -= 50;
 				}
 			}
 		}
