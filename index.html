@@ -89,8 +89,8 @@
 			lin = parseInt(snake[0].getAttribute("data-linha"));
 			col = parseInt(snake[0].getAttribute("data-coluna"));
 
-			console.log(direcao);
-
+			
+			
 			if (direcao == 'd'){
 				col += 1;
 			} else if (direcao == 'e'){
@@ -180,13 +180,13 @@
 		document.onkeyup = function (e) {
 		    var evento = window.event ? window.event : e;
 
-		    if(evento.keyCode == 37){
+		    if(evento.keyCode == 37 && direcao != 'd'){
 		    	direcao = 'e';
-		    } else if (evento.keyCode == 38){
+		    } else if (evento.keyCode == 38 && direcao != 'b'){
 		    	direcao = 'c';
-		    } else if (evento.keyCode == 39){
+		    } else if (evento.keyCode == 39 && direcao != 'e'){
 		    	direcao = 'd';
-		    } else if (evento.keyCode == 40){
+		    } else if (evento.keyCode == 40 && direcao != 'c'){
 		    	direcao = 'b';
 		    }
 		};
