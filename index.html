@@ -3,8 +3,8 @@
 	<head>
 		<style>
 			#campoJogo{
-			    width: 500px;
-			    height: 500px;
+			    width: 750px;
+			    height: 750px;
 			    
 			    top: 0;
 			    bottom: 0;
@@ -35,24 +35,34 @@
 			.campo{
 			    width: 50px;
 			    height: 50px;
-			    outline: 1px solid;
+			    
 			    float: left;
 			}
 		</style>
 	</head>	
-	<script type="text/javascript" >
-
-		var linhas = 10;
-		var colunas = 10;
+	<body>
+		<div id='header'>
+			<div id='nomeDoJogo'>SNAKE</div>
+			<div id='pontuacao'>0</div>
+		</div>
+		<div id='campoJogo'></div>
+	</body>
+</html>
+<script type="text/javascript" >
+		
+	(function() {
+		var linhas = 15;
+		var colunas = 15;
 		var direcao = 'd'; //c = cima / b = baixo / d = direita / e = esquerda
 		var snake = [];
-		var speed = 500;
+		var speed = 400;
 		var lin = 0
 		var col = 0
 		var fim = false;
 		var comida = false;
 		var comida_ele;
 		var pontos = 0;
+		var click = false;
 
 		function sleep(ms) {
 			return new Promise(resolve => setTimeout(resolve, ms));
@@ -60,13 +70,13 @@
 
 		function criarCampo(){
 			for (i = 0; i < linhas; i++) { 
-			    for (j = 0; j < colunas; j++) { 
-			    	var div = document.createElement('div');
-			    	div.className = 'campo';
-			    	div.setAttribute('data-linha', i);
-			    	div.setAttribute('data-coluna', j);
-			    	document.getElementById("campoJogo").appendChild(div);
-			    }
+				for (j = 0; j < colunas; j++) { 
+					var div = document.createElement('div');
+					div.className = 'campo';
+					div.setAttribute('data-linha', i);
+					div.setAttribute('data-coluna', j);
+					document.getElementById("campoJogo").appendChild(div);
+				}
 			}
 		}
 
@@ -109,7 +119,8 @@
 
 		function moverSnake(){
 			snake.unshift(document.querySelector('[data-linha="' + lin + '"][data-coluna="' + col + '"]'));
-
+			click = false;
+			
 			verificaComeu();
 			if (comida){
 				snake[snake.length-1].removeAttribute("style");
@@ -147,7 +158,7 @@
 				pontos += 10;
 				comida = false;	
 				document.getElementById("pontuacao").innerText = pontos
-				if(speed > 150){
+				if(speed > 10){
 					speed -= 50;
 				}
 			}
@@ -169,38 +180,27 @@
 			}, speed)
 		}
 
-		function inicializarJogo(){
-			criarCampo();
-			criarSnake();
-			pintarSnake();
-			gerarComida();
-			executarJogo();
-		};
-
 		document.onkeyup = function (e) {
-		    var key = (window.event || e).keyCode;
+			var key = (window.event || e).keyCode;
 
-		    if ((key == 37 || key == 65) && direcao != 'd')
-		    	direcao = 'e';
-		    else if ((key == 38 || key == 87) && direcao != 'b')
-		    	direcao = 'c';
-		    else if ((key == 39 || key == 68) && direcao != 'e')
-		    	direcao = 'd';
-		    else if ((key == 40 || key == 83) && direcao != 'c')
-		    	direcao = 'b';
+			if(!click){
+				if ((key == 37 || key == 65) && direcao != 'd')
+					direcao = 'e';
+				else if ((key == 38 || key == 87) && direcao != 'b')
+					direcao = 'c';
+				else if ((key == 39 || key == 68) && direcao != 'e')
+					direcao = 'd';
+				else if ((key == 40 || key == 83) && direcao != 'c')
+					direcao = 'b';
+				click = true;
+			}
 		};
-
-		window.onload = inicializarJogo;
 		
-  	</script>
-	<body>
-		<div id='header'>
-			<div id='nomeDoJogo'>SNAKE</div>
-			<div id='pontuacao'>0</div>
-		</div>
-		<div id='campoJogo'>
+		criarCampo();
+		criarSnake();
+		pintarSnake();
+		gerarComida();
+		executarJogo();
+	})();
 			
-  		</div>
-
-	</body>
-</html>
+</script>
