@@ -31,7 +31,7 @@
 		var linhas = 20;
 		var colunas = 10;
 		var direcao = 'd'; //c = cima / b = baixo / d = direita / e = esquerda
-		var speed = 400;
+		var speed = 1000;
 		var lin = 0
 		var col = 0
 		var fim = false;
@@ -118,7 +118,7 @@
 					this['d'] = document.querySelector('[data-linha="' + this['d'].getAttribute("data-linha") + '"][data-coluna="' + d_col + '"]');
 				}
 				this['pintar']();
-			}
+			},
 		};
 
 		function criarCampo(){
@@ -144,6 +144,21 @@
 			}
 		}
 
+		function descerObjeto(){
+			objeto.limpar();
+			var a_lin = parseInt(objeto.a.getAttribute("data-linha"));
+			var b_lin = parseInt(objeto.b.getAttribute("data-linha"));
+			var c_lin = parseInt(objeto.c.getAttribute("data-linha"));
+			var d_lin = parseInt(objeto.d.getAttribute("data-linha"));
+			
+			if( (Math.max(a_lin, b_lin, c_lin, d_lin) +1) < linhas){
+				objeto.a = document.querySelector('[data-linha="' + (a_lin +1) + '"][data-coluna="' + objeto.a.getAttribute("data-coluna") + '"]');
+				objeto.b = document.querySelector('[data-linha="' + (b_lin +1) + '"][data-coluna="' + objeto.b.getAttribute("data-coluna") + '"]');
+				objeto.c = document.querySelector('[data-linha="' + (c_lin +1) + '"][data-coluna="' + objeto.c.getAttribute("data-coluna") + '"]');
+				objeto.d = document.querySelector('[data-linha="' + (d_lin +1) + '"][data-coluna="' + objeto.d.getAttribute("data-coluna") + '"]');
+			}
+			objeto.pintar();
+		}
 
 
 		function executarJogo(){
@@ -151,7 +166,7 @@
 				gerarObjeto();
 				//verificaColisao(set objeto null);
 				//removeLinhas(+pontos);
-				//descerObjeto();
+				descerObjeto();
 				//varificaPerdeu();
 
 				if(!fim){
