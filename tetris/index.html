@@ -49,6 +49,7 @@
 		var max_linhas = false;
 		var a_, b_, c_, d_ = null;
 		var numeroSorte = 0;
+		var removerLinhas = []
 		var tipos = {
 			't': {
 				'sentido': 'b',
@@ -201,11 +202,6 @@
 			var c_cor = obj.position.c.getAttribute("data-cor");
 			var d_cor = obj.position.d.getAttribute("data-cor");
 
-			console.log(a_cor);
-			console.log(b_cor);
-			console.log(c_cor);
-			console.log(d_cor);
-
 			a_col += sentido;
 			b_col += sentido;
 			c_col += sentido;
@@ -304,13 +300,6 @@
 			}
 		}
 
-		function logBase(local){
-			console.log(local);
-			for (var i = 0; i < base.length; i++) {
-				console.log(base[i].position.a);
-			}
-		}
-
 		function descerObjeto(){
 			if( objeto !== null){
 
@@ -350,7 +339,17 @@
 		}
 
 		function removeLinhas(){
+			for (var i = 0; i < linhas; i++) {
+				removerLinhas[i] = 0;
+			}
+			for (var i = 0; i < base.length; i++) {
+				var l = parseInt(base[i].getAttribute("data-linha"));
+				removerLinhas[l] += 1;
+			}
 
+			// verificar se tem uma linha completa e mover tudo para baixo
+
+			// console.log(removerLinhas);
 		}
 
 		function executarJogo(){
@@ -358,7 +357,7 @@
 				gerarObjeto();
 				descerObjeto();
 				pintarBase();
-				//removeLinhas(+pontos);
+				removeLinhas();
 				//varificaPerdeu();
 
 				if(!fim){
