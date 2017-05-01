@@ -38,18 +38,17 @@
 		var linhas = 20;
 		var colunas = 10;
 		var direcao = 'd'; //c = cima / b = baixo / d = direita / e = esquerda
-		var speed = 300;
+		var speed = 1000;
 		var lin = 0
 		var col = 0
 		var fim = false;
 		var pontos = 0;
-		var direcaoTemp = 'd';
 		var objeto = null;
 		var base = [];
-		var basePositions = [];
 		var colisao = false;
 		var max_linhas = false;
-		var a_, b_, b_, d_ = null;
+		var a_, b_, c_, d_ = null;
+		var numeroSorte = 0;
 		var tipos = {
 			't': {
 				'sentido': 'b',
@@ -60,14 +59,8 @@
 					'b': null,
 					'd': null
 				},
-				'limpar': function() {
-					this['position'].a.removeAttribute("style");
-					this['position'].b.removeAttribute("style");
-					this['position'].c.removeAttribute("style");
-					this['position'].d.removeAttribute("style");
-				},
 				'girar': function() {
-					this['limpar']();
+					limpar(this);
 					var a_col, b_col, c_col, d_col = 0;
 					var s = '';
 					var a_col = parseInt(this['position'].a.getAttribute("data-coluna"));
@@ -102,7 +95,11 @@
 							this['position'].d = this['position'].a
 							this['position'].a = document.querySelector('[data-linha="' + b_lin + '"][data-coluna="' + b_col + '"]');
 					}
-					this['pintar']();
+					this['position'].a.setAttribute('data-cor', this['color']);
+					this['position'].b.setAttribute('data-cor', this['color']);
+					this['position'].c.setAttribute('data-cor', this['color']);
+					this['position'].d.setAttribute('data-cor', this['color']);
+					pintar(this);
 				},
 				'criar': function() {
 					this['sentido'] = 'b';
@@ -110,41 +107,14 @@
 					this['position'].b = document.querySelector('[data-linha="1"][data-coluna="4"]');
 					this['position'].c = document.querySelector('[data-linha="1"][data-coluna="5"]');
 					this['position'].d = document.querySelector('[data-linha="2"][data-coluna="4"]');
-
-					this['pintar']();
-				},
-				'pintar': function(){
-					this['position'].a.style.backgroundColor = this['color'];
-					this['position'].b.style.backgroundColor = this['color'];
-					this['position'].c.style.backgroundColor = this['color'];
-					this['position'].d.style.backgroundColor = this['color'];
-					this['position'].a.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
-					this['position'].b.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
-					this['position'].c.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
-					this['position'].d.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
-				},
-				'mover': function(sentido){
-					this['limpar']();
-					var a_col = parseInt(this['position'].a.getAttribute("data-coluna"));
-					var b_col = parseInt(this['position'].b.getAttribute("data-coluna"));
-					var c_col = parseInt(this['position'].c.getAttribute("data-coluna"));
-					var d_col = parseInt(this['position'].d.getAttribute("data-coluna"));
-					
-					a_col += sentido;
-					b_col += sentido;
-					c_col += sentido;
-					d_col += sentido;
-					
-					if( Math.min(a_col, b_col, c_col, d_col) >= 0 && Math.max(a_col, b_col, c_col, d_col) < colunas ){
-						this['position'].a = document.querySelector('[data-linha="' + this['position'].a.getAttribute("data-linha") + '"][data-coluna="' + a_col + '"]');
-						this['position'].b = document.querySelector('[data-linha="' + this['position'].b.getAttribute("data-linha") + '"][data-coluna="' + b_col + '"]');
-						this['position'].c = document.querySelector('[data-linha="' + this['position'].c.getAttribute("data-linha") + '"][data-coluna="' + c_col + '"]');
-						this['position'].d = document.querySelector('[data-linha="' + this['position'].d.getAttribute("data-linha") + '"][data-coluna="' + d_col + '"]');
-					}
-					this['pintar']();
-				},
+					this['position'].a.setAttribute('data-cor', this['color']);
+					this['position'].b.setAttribute('data-cor', this['color']);
+					this['position'].c.setAttribute('data-cor', this['color']);
+					this['position'].d.setAttribute('data-cor', this['color']);
+					pintar(this);
+				}
 			},
-			'l': {
+			'i': {
 				'sentido': 'b',
 				'color': 'blue',
 				'position':  {
@@ -153,91 +123,125 @@
 					'b': null,
 					'd': null
 				},
-				'limpar': function() {
-					this['position'].a.removeAttribute("style");
-					this['position'].b.removeAttribute("style");
-					this['position'].c.removeAttribute("style");
-					this['position'].d.removeAttribute("style");
-				},
 				'girar': function() {
-					this['limpar']();
-					var a_col, b_col, c_col, d_col = 0;
+					limpar(this);
 					var s = '';
-					var a_col = parseInt(this['position'].a.getAttribute("data-coluna"));
-					var b_col = parseInt(this['position'].b.getAttribute("data-coluna"));
-					var c_col = parseInt(this['position'].c.getAttribute("data-coluna"));
-					var d_col = parseInt(this['position'].d.getAttribute("data-coluna"));
+					var a_col, b_col, d_col = 0;
+					var a_lin, b_lin, d_lin = 0;
 
-					var b_lin = parseInt(this['position'].b.getAttribute("data-linha"));
+					a_col = parseInt(this['position'].a.getAttribute("data-coluna"));
+					b_col = parseInt(this['position'].b.getAttribute("data-coluna"));
+					d_col = parseInt(this['position'].d.getAttribute("data-coluna"));
+
+					a_lin = parseInt(this['position'].a.getAttribute("data-linha"));
+					b_lin = parseInt(this['position'].b.getAttribute("data-linha"));
+					d_lin = parseInt(this['position'].d.getAttribute("data-linha"));
 				
 					switch(this['sentido']){
-						case 'b':
+						case 'l':
+							a_lin -= 2;
+							a_col += 2;
 							b_lin -= 1;
-							s = 'e';
-							break;
-						case 'e':
 							b_col += 1;
-							s = 'c';
-							break;
-						case 'c':
-							b_lin += 1;
-							s = 'd';
-							break;
-						case 'd':
-							b_col -= 1;
+							d_lin += 1;
+							d_col -= 1;
 							s = 'b';
+							break;
+						case 'b':
+							a_lin += 2;
+							a_col -= 2;
+							b_lin += 1;
+							b_col -= 1;
+							d_lin -= 1;
+							d_col += 1;
+							s = 'l';
 							break;
 					}
 
-					if(b_col < colunas && b_col >= 0 && b_lin < linhas && !verificaColisao()){
+					if( (Math.min(a_lin, b_lin, d_lin) >= 0) && 
+						(Math.max(a_lin, b_lin, d_lin) < linhas) && 
+						(Math.min(a_col, b_col, d_col) >= 0) && 
+						(Math.max(a_col, b_col, d_col) < colunas) &&
+						!verificaColisao()){
 							this['sentido'] = s;
-							this['position'].c = this['position'].d
-							this['position'].d = this['position'].a
-							this['position'].a = document.querySelector('[data-linha="' + b_lin + '"][data-coluna="' + b_col + '"]');
-					}
-					this['pintar']();
+							this['position'].a = document.querySelector('[data-linha="' + a_lin + '"][data-coluna="' + a_col + '"]');
+							this['position'].b = document.querySelector('[data-linha="' + b_lin + '"][data-coluna="' + b_col + '"]');
+							this['position'].d = document.querySelector('[data-linha="' + d_lin + '"][data-coluna="' + d_col + '"]');
+						}
+					this['position'].a.setAttribute('data-cor', this['color']);
+					this['position'].b.setAttribute('data-cor', this['color']);
+					this['position'].c.setAttribute('data-cor', this['color']);
+					this['position'].d.setAttribute('data-cor', this['color']);
+					pintar(this);
 				},
 				'criar': function() {
 					this['sentido'] = 'b';
-					this['position'].a = document.querySelector('[data-linha="1"][data-coluna="3"]');
-					this['position'].b = document.querySelector('[data-linha="1"][data-coluna="4"]');
-					this['position'].c = document.querySelector('[data-linha="1"][data-coluna="5"]');
-					this['position'].d = document.querySelector('[data-linha="2"][data-coluna="4"]');
-
-					this['pintar']();
-				},
-				'pintar': function(){
-					this['position'].a.style.backgroundColor = this['color'];
-					this['position'].b.style.backgroundColor = this['color'];
-					this['position'].c.style.backgroundColor = this['color'];
-					this['position'].d.style.backgroundColor = this['color'];
-					this['position'].a.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
-					this['position'].b.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
-					this['position'].c.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
-					this['position'].d.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
-				},
-				'mover': function(sentido){
-					this['limpar']();
-					var a_col = parseInt(this['position'].a.getAttribute("data-coluna"));
-					var b_col = parseInt(this['position'].b.getAttribute("data-coluna"));
-					var c_col = parseInt(this['position'].c.getAttribute("data-coluna"));
-					var d_col = parseInt(this['position'].d.getAttribute("data-coluna"));
-					
-					a_col += sentido;
-					b_col += sentido;
-					c_col += sentido;
-					d_col += sentido;
-					
-					if( Math.min(a_col, b_col, c_col, d_col) >= 0 && Math.max(a_col, b_col, c_col, d_col) < colunas ){
-						this['position'].a = document.querySelector('[data-linha="' + this['position'].a.getAttribute("data-linha") + '"][data-coluna="' + a_col + '"]');
-						this['position'].b = document.querySelector('[data-linha="' + this['position'].b.getAttribute("data-linha") + '"][data-coluna="' + b_col + '"]');
-						this['position'].c = document.querySelector('[data-linha="' + this['position'].c.getAttribute("data-linha") + '"][data-coluna="' + c_col + '"]');
-						this['position'].d = document.querySelector('[data-linha="' + this['position'].d.getAttribute("data-linha") + '"][data-coluna="' + d_col + '"]');
-					}
-					this['pintar']();
-				},
+					this['position'].a = document.querySelector('[data-linha="1"][data-coluna="5"]');
+					this['position'].b = document.querySelector('[data-linha="2"][data-coluna="5"]');
+					this['position'].c = document.querySelector('[data-linha="3"][data-coluna="5"]');
+					this['position'].d = document.querySelector('[data-linha="4"][data-coluna="5"]');
+					this['position'].a.setAttribute('data-cor', this['color']);
+					this['position'].b.setAttribute('data-cor', this['color']);
+					this['position'].c.setAttribute('data-cor', this['color']);
+					this['position'].d.setAttribute('data-cor', this['color']);
+					pintar(this);
+				}
 			}
 		};
+
+		function mover(obj, sentido){
+			limpar(obj);
+			var a_col = parseInt(obj.position.a.getAttribute("data-coluna"));
+			var b_col = parseInt(obj.position.b.getAttribute("data-coluna"));
+			var c_col = parseInt(obj.position.c.getAttribute("data-coluna"));
+			var d_col = parseInt(obj.position.d.getAttribute("data-coluna"));
+			
+			var a_cor = obj.position.a.getAttribute("data-cor");
+			var b_cor = obj.position.b.getAttribute("data-cor");
+			var c_cor = obj.position.c.getAttribute("data-cor");
+			var d_cor = obj.position.d.getAttribute("data-cor");
+
+			console.log(a_cor);
+			console.log(b_cor);
+			console.log(c_cor);
+			console.log(d_cor);
+
+			a_col += sentido;
+			b_col += sentido;
+			c_col += sentido;
+			d_col += sentido;
+			
+			if( Math.min(a_col, b_col, c_col, d_col) >= 0 && Math.max(a_col, b_col, c_col, d_col) < colunas ){
+				obj.position.a = document.querySelector('[data-linha="' + obj.position.a.getAttribute("data-linha") + '"][data-coluna="' + a_col + '"]');
+				obj.position.b = document.querySelector('[data-linha="' + obj.position.b.getAttribute("data-linha") + '"][data-coluna="' + b_col + '"]');
+				obj.position.c = document.querySelector('[data-linha="' + obj.position.c.getAttribute("data-linha") + '"][data-coluna="' + c_col + '"]');
+				obj.position.d = document.querySelector('[data-linha="' + obj.position.d.getAttribute("data-linha") + '"][data-coluna="' + d_col + '"]');
+
+				obj.position.a.setAttribute('data-cor', a_cor);
+				obj.position.b.setAttribute('data-cor', b_cor);
+				obj.position.c.setAttribute('data-cor', c_cor);
+				obj.position.d.setAttribute('data-cor', d_cor);
+			}
+			pintar(obj);
+		}
+
+		function limpar(obj){
+			obj.position.a.removeAttribute("style");
+			obj.position.b.removeAttribute("style");
+			obj.position.c.removeAttribute("style");
+			obj.position.d.removeAttribute("style");
+		}
+
+		function pintar(obj){
+			obj.position.a.style.backgroundColor = obj.color;
+			obj.position.b.style.backgroundColor = obj.color;
+			obj.position.c.style.backgroundColor = obj.color;
+			obj.position.d.style.backgroundColor = obj.color;
+			obj.position.a.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+			obj.position.b.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+			obj.position.c.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+			obj.position.d.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+		}
 
 		function criarCampo(){
 			for (i = 0; i < linhas; i++) { 
@@ -249,6 +253,7 @@
 					div.className = 'campo';
 					div.setAttribute('data-linha', i);
 					div.setAttribute('data-coluna', j);
+					div.setAttribute('data-cor', 'white');
 					document.getElementById("linha"+i).appendChild(div);
 				}
 			}
@@ -256,7 +261,7 @@
 
 		function gerarObjeto(){
 			if(objeto == null){
-				var numeroSorte = (Math.floor((Math.random() * 10)) % (Object.values(tipos).length) );
+				numeroSorte = (Math.floor((Math.random() * 10)) % (Object.values(tipos).length) );
 				objeto = Object.values(tipos)[numeroSorte];
 				objeto.criar();
 			}
@@ -264,6 +269,7 @@
 
 		function verificaColisao(lateral=false, direcao=0, descer=1){
 			colisao = false;
+			a_, b_, c_, d_ = null;
 			if( objeto !== null){
 				var a_lin = parseInt(objeto.position.a.getAttribute("data-linha"));
 				var b_lin = parseInt(objeto.position.b.getAttribute("data-linha"));
@@ -277,17 +283,17 @@
 		
 				if(lateral)
 					descer = 0;
-			
+				
 				a_ = document.querySelector('[data-linha="' + (a_lin + descer) + '"][data-coluna="' + (a_col + direcao) + '"]');
 				b_ = document.querySelector('[data-linha="' + (b_lin + descer) + '"][data-coluna="' + (b_col + direcao) + '"]');
 				c_ = document.querySelector('[data-linha="' + (c_lin + descer) + '"][data-coluna="' + (c_col + direcao) + '"]');
 				d_ = document.querySelector('[data-linha="' + (d_lin + descer) + '"][data-coluna="' + (d_col + direcao) + '"]');
-				
-				for (var i = 0; i < basePositions.length; i++) {
-					if(	basePositions[i].isEqualNode(a_) ||
-						basePositions[i].isEqualNode(b_) ||
-						basePositions[i].isEqualNode(c_) ||
-						basePositions[i].isEqualNode(d_)){
+			
+				for (var i = 0; i < base.length; i++) {
+					if (base[i].isEqualNode(a_) ||
+						base[i].isEqualNode(b_) ||
+						base[i].isEqualNode(c_) ||
+						base[i].isEqualNode(d_)){
 						colisao = true;
 						break;
 					}
@@ -298,44 +304,61 @@
 			}
 		}
 
+		function logBase(local){
+			console.log(local);
+			for (var i = 0; i < base.length; i++) {
+				console.log(base[i].position.a);
+			}
+		}
+
 		function descerObjeto(){
 			if( objeto !== null){
-				objeto.limpar();
-				verificaColisao();
 
+				limpar(objeto);
+				verificaColisao();
+				
 				if( max_linhas && !colisao){
+					a_.setAttribute('data-cor', objeto.position.a.getAttribute('data-cor'));
+					b_.setAttribute('data-cor', objeto.position.b.getAttribute('data-cor'));
+					c_.setAttribute('data-cor', objeto.position.c.getAttribute('data-cor'));
+					d_.setAttribute('data-cor', objeto.position.d.getAttribute('data-cor'));
 					objeto.position.a = a_;
 					objeto.position.b = b_;
 					objeto.position.c = c_;
 					objeto.position.d = d_;
-					objeto.pintar();
+					pintar(objeto);
 				} else {	
 					atualizarBase();
 				}	
+
 			}
 		}
 
 		function pintarBase(){
 			for (var i = 0; i < base.length; i++) {
-				base[i].pintar();
+				base[i].style.backgroundColor = base[i].getAttribute("data-cor");
+				base[i].style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
 			}
 		}
 
 		function atualizarBase(){
-			base.push(objeto);
-			basePositions.push(objeto.position.a);
-			basePositions.push(objeto.position.b);
-			basePositions.push(objeto.position.c);
-			basePositions.push(objeto.position.d);
+			base.push(objeto.position.a);
+			base.push(objeto.position.b);
+			base.push(objeto.position.c);
+			base.push(objeto.position.d);
 			objeto = null;
+		}
+
+		function removeLinhas(){
+
 		}
 
 		function executarJogo(){
 			setTimeout(function () {
 				gerarObjeto();
-				//removeLinhas(+pontos);
 				descerObjeto();
 				pintarBase();
+				//removeLinhas(+pontos);
 				//varificaPerdeu();
 
 				if(!fim){
@@ -351,15 +374,17 @@
 
 		document.onkeyup = function (e) {
 			var key = (window.event || e).keyCode;
-			
+
 			if (key == 32){
 				if( objeto !== null){objeto.girar();}
 			} else if ((key == 37 || key == 65) && !verificaColisao(true, -1)){
-				if( objeto !== null){objeto.mover(-1);}
+				if( objeto !== null){mover(objeto, -1);}
 			} else if ((key == 39 || key == 68) && !verificaColisao(true, 1)){
-				if( objeto !== null){objeto.mover(+1);}
+				if( objeto !== null){mover(objeto, +1);}
 			} else if (key == 40  && !verificaColisao()){
 				if( objeto !== null){descerObjeto();pintarBase();}
+			} else if(key == 80){
+				fim = true;
 			}
 		};
 		
