@@ -346,39 +346,29 @@
 			for (var i = 0; i < linhas; i++) {
 				removerLinhas[i] = 0;
 			}
+			
+			var qtdLinhas = 0;
 			for (var i = 0; i < base.length; i++) {
 				var l = parseInt(base[i].getAttribute("data-linha"));
 				removerLinhas[l] += 1;
-			}
-
-			for (var i = 0; i < base.length; i++) {
-				var elem_lin = parseInt(base[i].getAttribute('data-linha'));
-				if( removerLinhas[elem_lin] >= colunas){
-					temp_base.push(base[i]);
+				
+				if (removerLinhas[l] == colunas) {
+					qtdLinhas++;
+					base = base.filter(function(el) {
+						if (el.getAttribute("data-linha") == l) {
+							el.removeAttribute("style");
+							return false;
+						}
+					
+						return true;
+					});
+					/*
+					base = base.map(function(el) {
+						el.setAttribute("data-linha", +el.getAttribute("data-linha") + qtdLinhas);
+					});
+					*/
 				}
 			}
-
-			for (var i = 0; i < temp_base.length ; i++) {
-				for (var j = base.length-1; j >= 0 ; j--) {
-					if(base[j].isEqualNode(temp_base[i])){
-						console.log(base[j]);
-						base[j].removeAttribute("style");
-						base.splice(base[j], 1);
-					}
-				}
-			}
-
-			// rever movimentação das celulas para baixo
-
-			// for (var i = removerLinhas.length -1; i >=0  ; i++) {
-			// 	if(removerLinhas[i] == colunas){
-			// 		for (var j = i; j >= 0; j--) {
-			// 			// base[j].setAttribute('data-linha') = parseInt(base[j].getAttribute('data-linha')) +1 ;
-			// 		}
-			// 	}
-			// }
-			
-
 		}
 
 		function executarJogo(){
