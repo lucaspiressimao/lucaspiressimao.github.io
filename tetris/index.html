@@ -49,7 +49,8 @@
 		var max_linhas = false;
 		var a_, b_, c_, d_ = null;
 		var numeroSorte = 0;
-		var removerLinhas = []
+		var removerLinhas = [];
+		var temp_base = [];
 		var tipos = {
 			't': {
 				'sentido': 'b',
@@ -339,6 +340,9 @@
 		}
 
 		function removeLinhas(){
+			//da para melhorar com filtar mas não consegui
+			temp_base = [];
+
 			for (var i = 0; i < linhas; i++) {
 				removerLinhas[i] = 0;
 			}
@@ -347,17 +351,43 @@
 				removerLinhas[l] += 1;
 			}
 
-			// verificar se tem uma linha completa e mover tudo para baixo
+			for (var i = 0; i < base.length; i++) {
+				var elem_lin = parseInt(base[i].getAttribute('data-linha'));
+				if( removerLinhas[elem_lin] >= colunas){
+					temp_base.push(base[i]);
+				}
+			}
 
-			// console.log(removerLinhas);
+			for (var i = 0; i < temp_base.length ; i++) {
+				for (var j = base.length-1; j >= 0 ; j--) {
+					if(base[j].isEqualNode(temp_base[i])){
+						console.log(base[j]);
+						base[j].removeAttribute("style");
+						base.splice(base[j], 1);
+					}
+				}
+			}
+
+			// rever movimentação das celulas para baixo
+
+			// for (var i = removerLinhas.length -1; i >=0  ; i++) {
+			// 	if(removerLinhas[i] == colunas){
+			// 		for (var j = i; j >= 0; j--) {
+			// 			// base[j].setAttribute('data-linha') = parseInt(base[j].getAttribute('data-linha')) +1 ;
+			// 		}
+			// 	}
+			// }
+			
+
 		}
 
 		function executarJogo(){
 			setTimeout(function () {
 				gerarObjeto();
 				descerObjeto();
-				pintarBase();
 				removeLinhas();
+				pintarBase();
+
 				//varificaPerdeu();
 
 				if(!fim){
