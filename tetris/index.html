@@ -25,10 +25,8 @@
 		</style>
 	</head>	
 	<body>
-		acrescentar outros tipos de peças <br>
-		remover linhas completas<br>
-		contar pontos<br>
-		verificar fim de jogo <br>
+		<div id='pontos'>Pontos: 0</div>
+		<div id='nivel'>Nivel: 0</div>
 		<div id='campoJogo'></div>
 	</body>
 </html>
@@ -38,6 +36,7 @@
 		var linhas = 20;
 		var colunas = 10;
 		var direcao = 'd'; //c = cima / b = baixo / d = direita / e = esquerda
+		var speed_base = 1000;
 		var speed = 1000;
 		var lin = 0
 		var col = 0
@@ -50,7 +49,14 @@
 		var a_, b_, c_, d_ = null;
 		var numeroSorte = 0;
 		var removerLinhas = [];
-		var temp_base = [];
+		var elemento_base = null;
+		var elemento_anterior = null;
+		var pontos = 0;
+		var linhas_removidas = 0;
+		var valor_modulo = 3;
+
+		var objeto_temp = null;
+
 		var tipos = {
 			't': {
 				'sentido': 'b',
@@ -65,12 +71,12 @@
 					limpar(this);
 					var a_col, b_col, c_col, d_col = 0;
 					var s = '';
-					var a_col = parseInt(this['position'].a.getAttribute("data-coluna"));
-					var b_col = parseInt(this['position'].b.getAttribute("data-coluna"));
-					var c_col = parseInt(this['position'].c.getAttribute("data-coluna"));
-					var d_col = parseInt(this['position'].d.getAttribute("data-coluna"));
+					var a_col = +this['position'].a.getAttribute("data-coluna");
+					var b_col = +this['position'].b.getAttribute("data-coluna");
+					var c_col = +this['position'].c.getAttribute("data-coluna");
+					var d_col = +this['position'].d.getAttribute("data-coluna");
 
-					var b_lin = parseInt(this['position'].b.getAttribute("data-linha"));
+					var b_lin = +this['position'].b.getAttribute("data-linha");
 				
 					switch(this['sentido']){
 						case 'b':
@@ -105,10 +111,10 @@
 				},
 				'criar': function() {
 					this['sentido'] = 'b';
-					this['position'].a = document.querySelector('[data-linha="1"][data-coluna="3"]');
-					this['position'].b = document.querySelector('[data-linha="1"][data-coluna="4"]');
-					this['position'].c = document.querySelector('[data-linha="1"][data-coluna="5"]');
-					this['position'].d = document.querySelector('[data-linha="2"][data-coluna="4"]');
+					this['position'].a = document.querySelector('[data-linha="0"][data-coluna="3"]');
+					this['position'].b = document.querySelector('[data-linha="0"][data-coluna="4"]');
+					this['position'].c = document.querySelector('[data-linha="0"][data-coluna="5"]');
+					this['position'].d = document.querySelector('[data-linha="1"][data-coluna="4"]');
 					this['position'].a.setAttribute('data-cor', this['color']);
 					this['position'].b.setAttribute('data-cor', this['color']);
 					this['position'].c.setAttribute('data-cor', this['color']);
@@ -131,13 +137,13 @@
 					var a_col, b_col, d_col = 0;
 					var a_lin, b_lin, d_lin = 0;
 
-					a_col = parseInt(this['position'].a.getAttribute("data-coluna"));
-					b_col = parseInt(this['position'].b.getAttribute("data-coluna"));
-					d_col = parseInt(this['position'].d.getAttribute("data-coluna"));
+					a_col = +this['position'].a.getAttribute("data-coluna");
+					b_col = +this['position'].b.getAttribute("data-coluna");
+					d_col = +this['position'].d.getAttribute("data-coluna");
 
-					a_lin = parseInt(this['position'].a.getAttribute("data-linha"));
-					b_lin = parseInt(this['position'].b.getAttribute("data-linha"));
-					d_lin = parseInt(this['position'].d.getAttribute("data-linha"));
+					a_lin = +this['position'].a.getAttribute("data-linha");
+					b_lin = +this['position'].b.getAttribute("data-linha");
+					d_lin = +this['position'].d.getAttribute("data-linha");
 				
 					switch(this['sentido']){
 						case 'l':
@@ -178,10 +184,10 @@
 				},
 				'criar': function() {
 					this['sentido'] = 'b';
-					this['position'].a = document.querySelector('[data-linha="1"][data-coluna="5"]');
-					this['position'].b = document.querySelector('[data-linha="2"][data-coluna="5"]');
-					this['position'].c = document.querySelector('[data-linha="3"][data-coluna="5"]');
-					this['position'].d = document.querySelector('[data-linha="4"][data-coluna="5"]');
+					this['position'].a = document.querySelector('[data-linha="0"][data-coluna="5"]');
+					this['position'].b = document.querySelector('[data-linha="1"][data-coluna="5"]');
+					this['position'].c = document.querySelector('[data-linha="2"][data-coluna="5"]');
+					this['position'].d = document.querySelector('[data-linha="3"][data-coluna="5"]');
 					this['position'].a.setAttribute('data-cor', this['color']);
 					this['position'].b.setAttribute('data-cor', this['color']);
 					this['position'].c.setAttribute('data-cor', this['color']);
@@ -250,7 +256,6 @@
 					div.className = 'campo';
 					div.setAttribute('data-linha', i);
 					div.setAttribute('data-coluna', j);
-					div.setAttribute('data-cor', 'white');
 					document.getElementById("linha"+i).appendChild(div);
 				}
 			}
@@ -336,48 +341,80 @@
 			base.push(objeto.position.b);
 			base.push(objeto.position.c);
 			base.push(objeto.position.d);
+			objeto_temp = Object.assign({},objeto);
 			objeto = null;
 		}
 
 		function removeLinhas(){
 			//da para melhorar com filtar mas não consegui
-			temp_base = [];
-
+			
 			for (var i = 0; i < linhas; i++) {
 				removerLinhas[i] = 0;
 			}
 			
-			var qtdLinhas = 0;
 			for (var i = 0; i < base.length; i++) {
 				var l = parseInt(base[i].getAttribute("data-linha"));
 				removerLinhas[l] += 1;
 				
 				if (removerLinhas[l] == colunas) {
-					qtdLinhas++;
+					linhas_removidas += 1;
 					base = base.filter(function(el) {
 						if (el.getAttribute("data-linha") == l) {
 							el.removeAttribute("style");
+							el.removeAttribute("data-cor");
 							return false;
 						}
-					
 						return true;
 					});
-					/*
-					base = base.map(function(el) {
-						el.setAttribute("data-linha", +el.getAttribute("data-linha") + qtdLinhas);
-					});
-					*/
+				}
+			}
+
+			for (var i = (removerLinhas.length -1); i > 0; i--) {
+				if(removerLinhas[i] == colunas){
+					for (var k = i; k > 0; k--) {
+						for (var j = 0; j < colunas; j++) {
+							elemento_base = document.querySelector('[data-linha="' + k + '"][data-coluna="' + j + '"]');
+							elemento_anterior = document.querySelector('[data-linha="' + (k -1) + '"][data-coluna="' + j + '"]');
+
+							elemento_base.setAttribute("data-cor", elemento_anterior.getAttribute("data-cor"));
+							
+							var index_anterior = base.indexOf(elemento_anterior);
+							if ( index_anterior > -1){
+								base.splice(index_anterior,1);
+								base.push(elemento_base);
+							}
+
+							elemento_anterior.removeAttribute("style");
+							elemento_anterior.removeAttribute("data-cor");					
+						}
+					}
 				}
 			}
 		}
 
+		function contarPontos(){
+			var nivel = Math.floor(linhas_removidas / valor_modulo)
+			document.getElementById("pontos").innerText = 'Pontos: ' + linhas_removidas * 10
+			document.getElementById("nivel").innerText = 'Nivel: ' + nivel
+			if(speed > 100){
+				speed = speed_base - (nivel * 5)
+			}
+		}
+
+		function verificaPerdeu(){
+
+		}
+
 		function executarJogo(){
-			setTimeout(function () {
+			setInterval(function(){
 				gerarObjeto();
-				descerObjeto();
 				removeLinhas();
 				pintarBase();
+				contarPontos();
+			}, 50);
 
+			setTimeout(function () {
+				descerObjeto();
 				//varificaPerdeu();
 
 				if(!fim){
@@ -387,11 +424,10 @@
 						alert("Voce perdeu !! Sua pontuacao foi de: " + pontos);
 					}, 10);
 				}
-
 			}, speed)
 		}
 
-		document.onkeyup = function (e) {
+		document.onkeydown = function (e) {
 			var key = (window.event || e).keyCode;
 
 			if (key == 32){
@@ -401,7 +437,9 @@
 			} else if ((key == 39 || key == 68) && !verificaColisao(true, 1)){
 				if( objeto !== null){mover(objeto, +1);}
 			} else if (key == 40  && !verificaColisao()){
-				if( objeto !== null){descerObjeto();pintarBase();}
+				if( objeto !== null){
+					descerObjeto();
+				}
 			} else if(key == 80){
 				fim = true;
 			}
