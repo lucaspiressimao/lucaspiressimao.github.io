@@ -56,7 +56,8 @@
 		var valor_modulo = 3;
 
 		var objeto_temp = null;
-
+		
+		// implementar s z , L e L invertido
 		var tipos = {
 			't': {
 				'sentido': 'b',
@@ -97,7 +98,7 @@
 							break;
 					}
 
-					if(b_col < colunas && b_col >= 0 && b_lin < linhas && !verificaColisao()){
+					if(b_col < colunas && b_col >= 0 && b_lin < linhas && b_lin >= 0 && !verificaColisao()){
 							this['sentido'] = s;
 							this['position'].c = this['position'].d
 							this['position'].d = this['position'].a
@@ -194,6 +195,31 @@
 					this['position'].d.setAttribute('data-cor', this['color']);
 					pintar(this);
 				}
+			},
+			'q': {
+				'sentido': 'b',
+				'color': 'green',
+				'position':  {
+					'a': null,
+					'c': null,
+					'b': null,
+					'd': null
+				},
+				'girar': function() {
+					pintar(this);
+				},
+				'criar': function() {
+					this['sentido'] = 'b';
+					this['position'].a = document.querySelector('[data-linha="0"][data-coluna="4"]');
+					this['position'].b = document.querySelector('[data-linha="0"][data-coluna="5"]');
+					this['position'].c = document.querySelector('[data-linha="1"][data-coluna="4"]');
+					this['position'].d = document.querySelector('[data-linha="1"][data-coluna="5"]');
+					this['position'].a.setAttribute('data-cor', this['color']);
+					this['position'].b.setAttribute('data-cor', this['color']);
+					this['position'].c.setAttribute('data-cor', this['color']);
+					this['position'].d.setAttribute('data-cor', this['color']);
+					pintar(this);
+				}
 			}
 		};
 
@@ -266,6 +292,7 @@
 				numeroSorte = (Math.floor((Math.random() * 10)) % (Object.values(tipos).length) );
 				objeto = Object.values(tipos)[numeroSorte];
 				objeto.criar();
+				fim = verificaColisao();
 			}
 		}
 
@@ -290,7 +317,7 @@
 				b_ = document.querySelector('[data-linha="' + (b_lin + descer) + '"][data-coluna="' + (b_col + direcao) + '"]');
 				c_ = document.querySelector('[data-linha="' + (c_lin + descer) + '"][data-coluna="' + (c_col + direcao) + '"]');
 				d_ = document.querySelector('[data-linha="' + (d_lin + descer) + '"][data-coluna="' + (d_col + direcao) + '"]');
-			
+				
 				for (var i = 0; i < base.length; i++) {
 					if (base[i].isEqualNode(a_) ||
 						base[i].isEqualNode(b_) ||
@@ -337,6 +364,10 @@
 		}
 
 		function atualizarBase(){
+			objeto.position.a.setAttribute("data-cor", objeto.color);
+			objeto.position.b.setAttribute("data-cor", objeto.color);
+			objeto.position.c.setAttribute("data-cor", objeto.color);
+			objeto.position.d.setAttribute("data-cor", objeto.color);
 			base.push(objeto.position.a);
 			base.push(objeto.position.b);
 			base.push(objeto.position.c);
@@ -346,8 +377,6 @@
 		}
 
 		function removeLinhas(){
-			//da para melhorar com filtar mas não consegui
-			
 			for (var i = 0; i < linhas; i++) {
 				removerLinhas[i] = 0;
 			}
@@ -396,26 +425,27 @@
 			var nivel = Math.floor(linhas_removidas / valor_modulo)
 			document.getElementById("pontos").innerText = 'Pontos: ' + linhas_removidas * 10
 			document.getElementById("nivel").innerText = 'Nivel: ' + nivel
-			if(speed > 100){
-				speed = speed_base - (nivel * 5)
+			if(speed > 50){
+				speed = speed_base - (nivel * 10)
 			}
 		}
 
 		function verificaPerdeu(){
-
+			//se na hora de gerar der colisao
 		}
 
 		function executarJogo(){
 			setInterval(function(){
-				gerarObjeto();
 				removeLinhas();
 				pintarBase();
 				contarPontos();
-			}, 50);
-
+			}, 8);
+			
 			setTimeout(function () {
-				descerObjeto();
-				//varificaPerdeu();
+				gerarObjeto();
+				if(!fim)
+					descerObjeto();
+				
 
 				if(!fim){
 					executarJogo();
