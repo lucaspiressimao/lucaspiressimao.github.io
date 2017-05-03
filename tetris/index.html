@@ -51,7 +51,6 @@
 		var removerLinhas = [];
 		var elemento_base = null;
 		var elemento_anterior = null;
-		var pontos = 0;
 		var linhas_removidas = 0;
 		var valor_modulo = 3;
 
@@ -423,15 +422,12 @@
 
 		function contarPontos(){
 			var nivel = Math.floor(linhas_removidas / valor_modulo)
-			document.getElementById("pontos").innerText = 'Pontos: ' + linhas_removidas * 10
+			pontos += linhas_removidas * 10
+			document.getElementById("pontos").innerText = 'Pontos: ' + pontos
 			document.getElementById("nivel").innerText = 'Nivel: ' + nivel
 			if(speed > 50){
 				speed = speed_base - (nivel * 10)
 			}
-		}
-
-		function verificaPerdeu(){
-			//se na hora de gerar der colisao
 		}
 
 		function executarJogo(){
@@ -443,15 +439,13 @@
 			
 			setTimeout(function () {
 				gerarObjeto();
-				if(!fim)
-					descerObjeto();
-				
-
 				if(!fim){
+					descerObjeto();
 					executarJogo();
 				} else {
 					setTimeout(function() {
-						alert("Voce perdeu !! Sua pontuacao foi de: " + pontos);
+						if(!alert("Voce perdeu! Sua pontuacao foi de: " + pontos)) 
+							document.location.reload();
 					}, 10);
 				}
 			}, speed)
@@ -460,13 +454,15 @@
 		document.onkeydown = function (e) {
 			var key = (window.event || e).keyCode;
 
-			if (key == 32){
+			console.log(key);
+			
+			if (key == 32 || key == 87 || key == 38){
 				if( objeto !== null){objeto.girar();}
 			} else if ((key == 37 || key == 65) && !verificaColisao(true, -1)){
 				if( objeto !== null){mover(objeto, -1);}
 			} else if ((key == 39 || key == 68) && !verificaColisao(true, 1)){
 				if( objeto !== null){mover(objeto, +1);}
-			} else if (key == 40  && !verificaColisao()){
+			} else if ((key == 40 || key == 83) && !verificaColisao()){
 				if( objeto !== null){
 					descerObjeto();
 				}
