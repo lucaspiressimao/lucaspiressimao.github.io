@@ -5,29 +5,52 @@
 			#campoJogo{
 			    width: 300px;
 			    height: 600px;
-			    
-			    top: 0;
-			    bottom: 0;
-			    left: 0;
-			    right: 0;
-			    margin: auto;
 			    outline: 1px solid;
+			    float: left;
 			}
 			.campo{
 			    width: 30px;
 			    height: 30px;
-			    
 			    float: left;
 			}
 			.peca{
 				box-shadow: 1px 1px;
 			}
+			.pecaCampo{
+				width: 20px;
+			    height: 20px;
+			    
+			    float: left;
+			}
+			#proxPeca{
+				width: 120px;
+			    height: 120px;
+			    outline: 1px solid;
+			    margin-left: 5px;
+			    float: left;
+			}
+			#externo{
+				margin: 0 auto;
+  				width: 30%;
+			}
+			#pontos {
+				margin-left: 5px;
+			    float: left;
+			    width: 120px;
+			}
+			#nivel {
+				margin-left: 5px;
+			    float: left;
+			}
 		</style>
 	</head>	
 	<body>
-		<div id='pontos'>Pontos: 0</div>
-		<div id='nivel'>Nivel: 0</div>
-		<div id='campoJogo'></div>
+		<div id='externo'>
+			<div id='campoJogo'></div>
+			<div id='proxPeca'></div>
+			<div id='pontos'>Pontos: 0</div>
+			<div id='nivel'>Nivel: 0</div>
+		</div>
 	</body>
 </html>
 <script type="text/javascript" >
@@ -53,14 +76,23 @@
 		var elemento_anterior = null;
 		var linhas_removidas = 0;
 		var valor_modulo = 3;
-
+		var prox_objeto = null;
 		var objeto_temp = null;
-		
-		// implementar s z , L e L invertido
+		var temp = []
+
+		// #ff4000 *
+		// #e60073 *
+		// #3300cc * 
+		// #0099cc *
+		// #00b32d *
+		// #e6ac00 *
+		// #862d59
+
+		// implementar z 
 		var tipos = {
 			't': {
 				'sentido': 'b',
-				'color': 'red',
+				'color': '#ff4000',
 				'position':  {
 					'a': null,
 					'c': null,
@@ -120,11 +152,26 @@
 					this['position'].c.setAttribute('data-cor', this['color']);
 					this['position'].d.setAttribute('data-cor', this['color']);
 					pintar(this);
-				}
+				},
+				'criar_mini': function() {
+					var a_prox = document.querySelector('[data-linha-prox="2"][data-coluna-prox="1"]');
+					var b_prox = document.querySelector('[data-linha-prox="2"][data-coluna-prox="2"]');
+					var c_prox = document.querySelector('[data-linha-prox="2"][data-coluna-prox="3"]');
+					var d_prox = document.querySelector('[data-linha-prox="3"][data-coluna-prox="2"]');
+
+					a_prox.style.backgroundColor = this['color'];
+					a_prox.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+					b_prox.style.backgroundColor = this['color'];
+					b_prox.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+					c_prox.style.backgroundColor = this['color'];
+					c_prox.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+					d_prox.style.backgroundColor = this['color'];
+					d_prox.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+				},
 			},
 			'i': {
 				'sentido': 'b',
-				'color': 'blue',
+				'color': '#e60073',
 				'position':  {
 					'a': null,
 					'c': null,
@@ -193,11 +240,26 @@
 					this['position'].c.setAttribute('data-cor', this['color']);
 					this['position'].d.setAttribute('data-cor', this['color']);
 					pintar(this);
-				}
+				},
+				'criar_mini': function() {
+					var a_prox = document.querySelector('[data-linha-prox="1"][data-coluna-prox="3"]');
+					var b_prox = document.querySelector('[data-linha-prox="2"][data-coluna-prox="3"]');
+					var c_prox = document.querySelector('[data-linha-prox="3"][data-coluna-prox="3"]');
+					var d_prox = document.querySelector('[data-linha-prox="4"][data-coluna-prox="3"]');
+
+					a_prox.style.backgroundColor = this['color'];
+					a_prox.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+					b_prox.style.backgroundColor = this['color'];
+					b_prox.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+					c_prox.style.backgroundColor = this['color'];
+					c_prox.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+					d_prox.style.backgroundColor = this['color'];
+					d_prox.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+				},
 			},
 			'q': {
 				'sentido': 'b',
-				'color': 'green',
+				'color': '#3300cc',
 				'position':  {
 					'a': null,
 					'c': null,
@@ -218,8 +280,305 @@
 					this['position'].c.setAttribute('data-cor', this['color']);
 					this['position'].d.setAttribute('data-cor', this['color']);
 					pintar(this);
-				}
-			}
+				},
+				'criar_mini': function() {
+					var a_prox = document.querySelector('[data-linha-prox="2"][data-coluna-prox="2"]');
+					var b_prox = document.querySelector('[data-linha-prox="2"][data-coluna-prox="3"]');
+					var c_prox = document.querySelector('[data-linha-prox="3"][data-coluna-prox="2"]');
+					var d_prox = document.querySelector('[data-linha-prox="3"][data-coluna-prox="3"]');
+
+					a_prox.style.backgroundColor = this['color'];
+					a_prox.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+					b_prox.style.backgroundColor = this['color'];
+					b_prox.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+					c_prox.style.backgroundColor = this['color'];
+					c_prox.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+					d_prox.style.backgroundColor = this['color'];
+					d_prox.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+				},
+			},
+			'l': {
+				'sentido': 'b',
+				'color': '#0099cc',
+				'position':  {
+					'a': null,
+					'c': null,
+					'b': null,
+					'd': null
+				},
+				'girar': function() {
+					limpar(this);
+					var s = '';
+					var a_col, b_col = 0;
+					var a_lin, b_lin = 0;
+
+					a_col = +this['position'].a.getAttribute("data-coluna");
+					b_col = +this['position'].b.getAttribute("data-coluna");
+					
+					a_lin = +this['position'].a.getAttribute("data-linha");
+					b_lin = +this['position'].b.getAttribute("data-linha");
+					
+					switch(this['sentido']){
+						case 'b':
+							a_lin += 2;
+							a_col += 2;
+							b_lin += 1;
+							b_col += 1;
+							s = 'e';
+							break;
+						case 'e':
+							a_lin += 2;
+							a_col -= 2;
+							b_lin += 1;
+							b_col -= 1;
+							s = 'c';
+							break;
+						case 'c':
+							a_lin -= 2;
+							a_col -= 2;
+							b_lin -= 1;
+							b_col -= 1;
+							s = 'd';
+							break;
+						case 'd':
+							a_lin -= 2;
+							a_col += 2;
+							b_lin -= 1;
+							b_col += 1;
+							s = 'b';
+							break;
+					}
+
+					if( (Math.min(a_lin, b_lin) >= 0) && 
+						(Math.max(a_lin, b_lin) < linhas) && 
+						(Math.min(a_col, b_col) >= 0) && 
+						(Math.max(a_col, b_col) < colunas) &&
+						!verificaColisao()){
+							this['sentido'] = s;
+							this['position'].d = this['position'].b
+							this['position'].a = document.querySelector('[data-linha="' + a_lin + '"][data-coluna="' + a_col + '"]');
+							this['position'].b = document.querySelector('[data-linha="' + b_lin + '"][data-coluna="' + b_col + '"]');
+						}
+					this['position'].a.setAttribute('data-cor', this['color']);
+					this['position'].b.setAttribute('data-cor', this['color']);
+					this['position'].c.setAttribute('data-cor', this['color']);
+					this['position'].d.setAttribute('data-cor', this['color']);
+					pintar(this);
+				},
+				'criar': function() {
+					this['sentido'] = 'b';
+					this['position'].a = document.querySelector('[data-linha="0"][data-coluna="5"]');
+					this['position'].b = document.querySelector('[data-linha="1"][data-coluna="5"]');
+					this['position'].c = document.querySelector('[data-linha="2"][data-coluna="5"]');
+					this['position'].d = document.querySelector('[data-linha="2"][data-coluna="4"]');
+					this['position'].a.setAttribute('data-cor', this['color']);
+					this['position'].b.setAttribute('data-cor', this['color']);
+					this['position'].c.setAttribute('data-cor', this['color']);
+					this['position'].d.setAttribute('data-cor', this['color']);
+					pintar(this);
+				},
+				'criar_mini': function() {
+					var a_prox = document.querySelector('[data-linha-prox="2"][data-coluna-prox="3"]');
+					var b_prox = document.querySelector('[data-linha-prox="3"][data-coluna-prox="3"]');
+					var c_prox = document.querySelector('[data-linha-prox="4"][data-coluna-prox="3"]');
+					var d_prox = document.querySelector('[data-linha-prox="4"][data-coluna-prox="2"]');
+
+					a_prox.style.backgroundColor = this['color'];
+					a_prox.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+					b_prox.style.backgroundColor = this['color'];
+					b_prox.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+					c_prox.style.backgroundColor = this['color'];
+					c_prox.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+					d_prox.style.backgroundColor = this['color'];
+					d_prox.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+				},
+			},
+			'L': {
+				'sentido': 'b',
+				'color': '#00b32d',
+				'position':  {
+					'a': null,
+					'c': null,
+					'b': null,
+					'd': null
+				},
+				'girar': function() {
+					limpar(this);
+					var s = '';
+					var a_col, d_col = 0;
+					var a_lin, d_lin = 0;
+
+					a_col = +this['position'].a.getAttribute("data-coluna");
+					d_col = +this['position'].d.getAttribute("data-coluna");
+					
+					a_lin = +this['position'].a.getAttribute("data-linha");
+					d_lin = +this['position'].d.getAttribute("data-linha");
+					
+					switch(this['sentido']){
+						case 'b':
+							a_lin += 2;
+							a_col += 2;
+							d_lin += 1;
+							d_col -= 1;
+							s = 'e';
+							break;
+						case 'e':
+							a_lin += 2;
+							a_col -= 2;
+							d_lin -= 1;
+							d_col -= 1;
+							s = 'c';
+							break;
+						case 'c':
+							a_lin -= 2;
+							a_col -= 2;
+							d_lin -= 1;
+							d_col += 1;
+							s = 'd';
+							break;
+						case 'd':
+							a_lin -= 2;
+							a_col += 2;
+							d_lin += 1;
+							d_col += 1;
+							s = 'b';
+							break;
+					}
+
+					if( (Math.min(a_lin, d_lin) >= 0) && 
+						(Math.max(a_lin, d_lin) < linhas) && 
+						(Math.min(a_col, d_col) >= 0) && 
+						(Math.max(a_col, d_col) < colunas) &&
+						!verificaColisao()){
+							this['sentido'] = s;
+							this['position'].b = this['position'].d
+							this['position'].a = document.querySelector('[data-linha="' + a_lin + '"][data-coluna="' + a_col + '"]');
+							this['position'].d = document.querySelector('[data-linha="' + d_lin + '"][data-coluna="' + d_col + '"]');
+						}
+					this['position'].a.setAttribute('data-cor', this['color']);
+					this['position'].b.setAttribute('data-cor', this['color']);
+					this['position'].c.setAttribute('data-cor', this['color']);
+					this['position'].d.setAttribute('data-cor', this['color']);
+					pintar(this);
+				},
+				'criar': function() {
+					this['sentido'] = 'b';
+					this['position'].a = document.querySelector('[data-linha="0"][data-coluna="5"]');
+					this['position'].b = document.querySelector('[data-linha="1"][data-coluna="5"]');
+					this['position'].c = document.querySelector('[data-linha="2"][data-coluna="5"]');
+					this['position'].d = document.querySelector('[data-linha="2"][data-coluna="6"]');
+					this['position'].a.setAttribute('data-cor', this['color']);
+					this['position'].b.setAttribute('data-cor', this['color']);
+					this['position'].c.setAttribute('data-cor', this['color']);
+					this['position'].d.setAttribute('data-cor', this['color']);
+					pintar(this);
+				},
+				'criar_mini': function() {
+					var a_prox = document.querySelector('[data-linha-prox="2"][data-coluna-prox="3"]');
+					var b_prox = document.querySelector('[data-linha-prox="3"][data-coluna-prox="3"]');
+					var c_prox = document.querySelector('[data-linha-prox="4"][data-coluna-prox="3"]');
+					var d_prox = document.querySelector('[data-linha-prox="4"][data-coluna-prox="4"]');
+
+					a_prox.style.backgroundColor = this['color'];
+					a_prox.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+					b_prox.style.backgroundColor = this['color'];
+					b_prox.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+					c_prox.style.backgroundColor = this['color'];
+					c_prox.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+					d_prox.style.backgroundColor = this['color'];
+					d_prox.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+				},
+			},
+			's': {
+				'sentido': 'b',
+				'color': '#e6ac00',
+				'position':  {
+					'a': null,
+					'c': null,
+					'b': null,
+					'd': null
+				},
+				'girar': function() {
+					limpar(this);
+					var s = '';
+					var a_col, b_col, d_col = 0;
+					var a_lin, b_lin, d_lin = 0;
+
+					a_col = +this['position'].a.getAttribute("data-coluna");
+					b_col = +this['position'].b.getAttribute("data-coluna");
+					d_col = +this['position'].d.getAttribute("data-coluna");
+
+					a_lin = +this['position'].a.getAttribute("data-linha");
+					b_lin = +this['position'].b.getAttribute("data-linha");
+					d_lin = +this['position'].d.getAttribute("data-linha");
+					
+					switch(this['sentido']){
+						case 'b':
+							a_lin += 2;
+							b_lin += 1;
+							b_col += 1;
+							s = 'e';
+							break;
+						case 'e':
+							a_lin -= 2;
+							d_col -= 1;
+							d_lin += 1;
+							s = 'b';
+							break;
+					}
+
+					if( (Math.min(a_lin, b_lin, d_lin) >= 0) && 
+						(Math.max(a_lin, b_lin, d_lin) < linhas) && 
+						(Math.min(a_col, b_col, d_col) >= 0) && 
+						(Math.max(a_col, b_col, d_col) < colunas) &&
+						!verificaColisao()){
+							this['sentido'] = s;
+							if(s == 'e'){
+								this['position'].d = this['position'].b;
+								this['position'].b = document.querySelector('[data-linha="' + b_lin + '"][data-coluna="' + b_col + '"]');
+							}
+							else{
+								this['position'].b = this['position'].d;
+								this['position'].d = document.querySelector('[data-linha="' + d_lin + '"][data-coluna="' + d_col + '"]');
+							}
+
+							this['position'].a = document.querySelector('[data-linha="' + a_lin + '"][data-coluna="' + a_col + '"]');
+							
+						}
+					this['position'].a.setAttribute('data-cor', this['color']);
+					this['position'].b.setAttribute('data-cor', this['color']);
+					this['position'].c.setAttribute('data-cor', this['color']);
+					this['position'].d.setAttribute('data-cor', this['color']);
+					pintar(this);
+				},
+				'criar': function() {
+					this['sentido'] = 'b';
+					this['position'].a = document.querySelector('[data-linha="0"][data-coluna="5"]');
+					this['position'].b = document.querySelector('[data-linha="0"][data-coluna="4"]');
+					this['position'].c = document.querySelector('[data-linha="1"][data-coluna="4"]');
+					this['position'].d = document.querySelector('[data-linha="1"][data-coluna="3"]');
+					this['position'].a.setAttribute('data-cor', this['color']);
+					this['position'].b.setAttribute('data-cor', this['color']);
+					this['position'].c.setAttribute('data-cor', this['color']);
+					this['position'].d.setAttribute('data-cor', this['color']);
+					pintar(this);
+				},
+				'criar_mini': function() {
+					var a_prox = document.querySelector('[data-linha-prox="2"][data-coluna-prox="3"]');
+					var b_prox = document.querySelector('[data-linha-prox="2"][data-coluna-prox="2"]');
+					var c_prox = document.querySelector('[data-linha-prox="3"][data-coluna-prox="2"]');
+					var d_prox = document.querySelector('[data-linha-prox="3"][data-coluna-prox="1"]');
+
+					a_prox.style.backgroundColor = this['color'];
+					a_prox.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+					b_prox.style.backgroundColor = this['color'];
+					b_prox.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+					c_prox.style.backgroundColor = this['color'];
+					c_prox.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+					d_prox.style.backgroundColor = this['color'];
+					d_prox.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+				},
+			},
 		};
 
 		function mover(obj, sentido){
@@ -284,13 +643,41 @@
 					document.getElementById("linha"+i).appendChild(div);
 				}
 			}
+
+			for (i = 0; i < 6; i++) { 
+				var divLinha2 = document.createElement('div');
+				divLinha2.setAttribute('id', 'linha2_' + i);
+				document.getElementById("proxPeca").appendChild(divLinha2);
+				for (j = 0; j < 6; j++) { 
+					var div2 = document.createElement('div');
+					div2.className = 'pecaCampo';
+					div2.setAttribute('data-linha-prox', i);
+					div2.setAttribute('data-coluna-prox', j);
+					document.getElementById("linha2_"+i).appendChild(div2);
+				}
+			}
 		}
 
 		function gerarObjeto(){
 			if(objeto == null){
-				numeroSorte = (Math.floor((Math.random() * 10)) % (Object.values(tipos).length) );
+
+				if(objeto_temp == null)
+					numeroSorte = (Math.floor((Math.random() * 10)) % (Object.values(tipos).length) );
+				
 				objeto = Object.values(tipos)[numeroSorte];
 				objeto.criar();
+
+				numeroSorte = (Math.floor((Math.random() * 10)) % (Object.values(tipos).length) );
+				
+				var divs = document.querySelectorAll('[data-linha-prox]');
+				
+				for (var div of divs) {
+					div.removeAttribute("style");
+				}
+
+				objeto_temp = Object.values(tipos)[numeroSorte]; 
+				objeto_temp.criar_mini();
+				
 				fim = verificaColisao();
 			}
 		}
@@ -317,6 +704,19 @@
 				c_ = document.querySelector('[data-linha="' + (c_lin + descer) + '"][data-coluna="' + (c_col + direcao) + '"]');
 				d_ = document.querySelector('[data-linha="' + (d_lin + descer) + '"][data-coluna="' + (d_col + direcao) + '"]');
 				
+				console.log("####################################")
+				for (var div of base) {
+					console.log(div);
+					console.log(div);
+					console.log(div);
+					console.log(div);
+				}
+				console.log("____________________________________")
+				console.log(a_);
+				console.log(b_);
+				console.log(c_);
+				console.log(d_);
+
 				for (var i = 0; i < base.length; i++) {
 					if (base[i].isEqualNode(a_) ||
 						base[i].isEqualNode(b_) ||
@@ -422,7 +822,7 @@
 
 		function contarPontos(){
 			var nivel = Math.floor(linhas_removidas / valor_modulo)
-			pontos += linhas_removidas * 10
+			pontos = linhas_removidas * 10
 			document.getElementById("pontos").innerText = 'Pontos: ' + pontos
 			document.getElementById("nivel").innerText = 'Nivel: ' + nivel
 			if(speed > 50){
@@ -432,20 +832,21 @@
 
 		function executarJogo(){
 			setInterval(function(){
+				gerarObjeto();
 				removeLinhas();
 				pintarBase();
 				contarPontos();
-			}, 8);
+			}, 5);
+
 			
 			setTimeout(function () {
-				gerarObjeto();
 				if(!fim){
 					descerObjeto();
 					executarJogo();
 				} else {
 					setTimeout(function() {
-						if(!alert("Voce perdeu! Sua pontuacao foi de: " + pontos)) 
-							document.location.reload();
+						// if(!alert("Voce perdeu! Sua pontuacao foi de: " + pontos)) 
+							// document.location.reload();
 					}, 10);
 				}
 			}, speed)
@@ -453,8 +854,6 @@
 
 		document.onkeydown = function (e) {
 			var key = (window.event || e).keyCode;
-
-			console.log(key);
 			
 			if (key == 32 || key == 87 || key == 38){
 				if( objeto !== null){objeto.girar();}
