@@ -213,11 +213,19 @@
 							break;
 					}
 
+					var colidiu = verificaColisao();
+					console.log("girar");
+					console.log(colidiu);
+					
 					if( (Math.min(a_lin, b_lin, d_lin) >= 0) && 
 						(Math.max(a_lin, b_lin, d_lin) < linhas) && 
 						(Math.min(a_col, b_col, d_col) >= 0) && 
 						(Math.max(a_col, b_col, d_col) < colunas) &&
-						!verificaColisao()){
+						!colidiu){
+							
+							console.log("girar");
+							console.log(colidiu);
+							
 							this['sentido'] = s;
 							this['position'].a = document.querySelector('[data-linha="' + a_lin + '"][data-coluna="' + a_col + '"]');
 							this['position'].b = document.querySelector('[data-linha="' + b_lin + '"][data-coluna="' + b_col + '"]');
@@ -664,7 +672,7 @@
 				if(objeto_temp == null)
 					numeroSorte = (Math.floor((Math.random() * 10)) % (Object.values(tipos).length) );
 				
-				objeto = Object.values(tipos)[numeroSorte];
+				objeto = Object.values(tipos)[1];
 				objeto.criar();
 
 				numeroSorte = (Math.floor((Math.random() * 10)) % (Object.values(tipos).length) );
@@ -675,7 +683,7 @@
 					div.removeAttribute("style");
 				}
 
-				objeto_temp = Object.values(tipos)[numeroSorte]; 
+				objeto_temp = Object.values(tipos)[1]; 
 				objeto_temp.criar_mini();
 				
 				fim = verificaColisao();
@@ -699,6 +707,8 @@
 				if(lateral)
 					descer = 0;
 				
+				//tem que verificar se ele bate quando girar o elemento
+				
 				a_ = document.querySelector('[data-linha="' + (a_lin + descer) + '"][data-coluna="' + (a_col + direcao) + '"]');
 				b_ = document.querySelector('[data-linha="' + (b_lin + descer) + '"][data-coluna="' + (b_col + direcao) + '"]');
 				c_ = document.querySelector('[data-linha="' + (c_lin + descer) + '"][data-coluna="' + (c_col + direcao) + '"]');
@@ -706,9 +716,6 @@
 				
 				console.log("####################################")
 				for (var div of base) {
-					console.log(div);
-					console.log(div);
-					console.log(div);
 					console.log(div);
 				}
 				console.log("____________________________________")
@@ -723,10 +730,13 @@
 						base[i].isEqualNode(c_) ||
 						base[i].isEqualNode(d_)){
 						colisao = true;
+						//atualizarBase();
 						break;
 					}
 				}
-
+				
+				console.log("colisao");
+				console.log(colisao);
 				max_linhas = (Math.max(a_lin, b_lin, c_lin, d_lin) +1) < linhas
 				return colisao;
 			}
@@ -771,8 +781,12 @@
 			base.push(objeto.position.b);
 			base.push(objeto.position.c);
 			base.push(objeto.position.d);
+			console.log("Atualiza base");
+			console.log(objeto);
 			objeto_temp = Object.assign({},objeto);
+			console.log(objeto_temp);
 			objeto = null;
+			console.log(objeto_temp);
 		}
 
 		function removeLinhas(){
@@ -845,8 +859,8 @@
 					executarJogo();
 				} else {
 					setTimeout(function() {
-						// if(!alert("Voce perdeu! Sua pontuacao foi de: " + pontos)) 
-							// document.location.reload();
+						//if(!alert("Voce perdeu! Sua pontuacao foi de: " + pontos)) 
+							//document.location.reload();
 					}, 10);
 				}
 			}, speed)
