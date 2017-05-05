@@ -55,7 +55,7 @@
 </html>
 <script type="text/javascript" >
 		
-	//(function() {
+	(function() {
 		var linhas = 20;
 		var colunas = 10;
 		var direcao = 'd'; //c = cima / b = baixo / d = direita / e = esquerda
@@ -68,6 +68,7 @@
 		var objeto = null;
 		var base = [];
 		var colisao = false;
+		var colisao_giro = false;
 		var max_linhas = false;
 		var a_, b_, c_, d_ = null;
 		var numeroSorte = 0;
@@ -79,6 +80,7 @@
 		var prox_objeto = null;
 		var objeto_temp = null;
 		var temp = []
+		var a_giro, b_giro, c_giro, d_giro = null;
 
 		// #ff4000 *
 		// #e60073 *
@@ -129,16 +131,24 @@
 							break;
 					}
 
-					if(b_col < colunas && b_col >= 0 && b_lin < linhas && b_lin >= 0 && !verificaColisao()){
+					c_giro = this['position'].d
+					d_giro = this['position'].a
+					a_giro = document.querySelector('[data-linha="' + b_lin + '"][data-coluna="' + b_col + '"]');
+					b_biro = this['position'].b
+					
+					verificaColisao();
+					
+					if(b_col < colunas && b_col >= 0 && b_lin < linhas && b_lin >= 0 && !colisao_giro){
 							this['sentido'] = s;
-							this['position'].c = this['position'].d
-							this['position'].d = this['position'].a
-							this['position'].a = document.querySelector('[data-linha="' + b_lin + '"][data-coluna="' + b_col + '"]');
+							this['position'].c = c_giro;
+							this['position'].d = d_giro;
+							this['position'].a = a_giro;
 					}
 					this['position'].a.setAttribute('data-cor', this['color']);
 					this['position'].b.setAttribute('data-cor', this['color']);
 					this['position'].c.setAttribute('data-cor', this['color']);
 					this['position'].d.setAttribute('data-cor', this['color']);
+					colisao_giro = false;
 					pintar(this);
 				},
 				'criar': function() {
@@ -213,28 +223,28 @@
 							break;
 					}
 
-					var colidiu = verificaColisao();
-					console.log("girar");
-					console.log(colidiu);
+					a_giro = document.querySelector('[data-linha="' + a_lin + '"][data-coluna="' + a_col + '"]');
+					b_giro = document.querySelector('[data-linha="' + b_lin + '"][data-coluna="' + b_col + '"]');
+					c_giro = this['position'].c
+					d_giro = document.querySelector('[data-linha="' + d_lin + '"][data-coluna="' + d_col + '"]');
+					
+					verificaColisao();
 					
 					if( (Math.min(a_lin, b_lin, d_lin) >= 0) && 
 						(Math.max(a_lin, b_lin, d_lin) < linhas) && 
 						(Math.min(a_col, b_col, d_col) >= 0) && 
 						(Math.max(a_col, b_col, d_col) < colunas) &&
-						!colidiu){
-							
-							console.log("girar");
-							console.log(colidiu);
-							
+						!colisao_giro){
 							this['sentido'] = s;
-							this['position'].a = document.querySelector('[data-linha="' + a_lin + '"][data-coluna="' + a_col + '"]');
-							this['position'].b = document.querySelector('[data-linha="' + b_lin + '"][data-coluna="' + b_col + '"]');
-							this['position'].d = document.querySelector('[data-linha="' + d_lin + '"][data-coluna="' + d_col + '"]');
+							this['position'].a = a_giro;
+							this['position'].b = b_giro;
+							this['position'].d = d_giro;
 						}
 					this['position'].a.setAttribute('data-cor', this['color']);
 					this['position'].b.setAttribute('data-cor', this['color']);
 					this['position'].c.setAttribute('data-cor', this['color']);
 					this['position'].d.setAttribute('data-cor', this['color']);
+					colisao_giro = false;
 					pintar(this);
 				},
 				'criar': function() {
@@ -276,6 +286,7 @@
 				},
 				'girar': function() {
 					pintar(this);
+					colisao_giro = false;
 				},
 				'criar': function() {
 					this['sentido'] = 'b';
@@ -357,20 +368,28 @@
 							break;
 					}
 
+					d_giro = this['position'].b;
+					a_giro = document.querySelector('[data-linha="' + a_lin + '"][data-coluna="' + a_col + '"]');
+					b_giro = document.querySelector('[data-linha="' + b_lin + '"][data-coluna="' + b_col + '"]');
+					c_giro = this['position'].c;
+					
+					verificaColisao();
+					
 					if( (Math.min(a_lin, b_lin) >= 0) && 
 						(Math.max(a_lin, b_lin) < linhas) && 
 						(Math.min(a_col, b_col) >= 0) && 
 						(Math.max(a_col, b_col) < colunas) &&
-						!verificaColisao()){
+						!colisao_giro){
 							this['sentido'] = s;
-							this['position'].d = this['position'].b
-							this['position'].a = document.querySelector('[data-linha="' + a_lin + '"][data-coluna="' + a_col + '"]');
-							this['position'].b = document.querySelector('[data-linha="' + b_lin + '"][data-coluna="' + b_col + '"]');
+							this['position'].d = d_giro;
+							this['position'].a = a_giro;
+							this['position'].b = b_giro;
 						}
 					this['position'].a.setAttribute('data-cor', this['color']);
 					this['position'].b.setAttribute('data-cor', this['color']);
 					this['position'].c.setAttribute('data-cor', this['color']);
 					this['position'].d.setAttribute('data-cor', this['color']);
+					colisao_giro = false;
 					pintar(this);
 				},
 				'criar': function() {
@@ -453,20 +472,28 @@
 							break;
 					}
 
+					c_giro = this['position'].c;
+					b_giro = this['position'].d;
+					a_giro = document.querySelector('[data-linha="' + a_lin + '"][data-coluna="' + a_col + '"]');
+					d_giro = document.querySelector('[data-linha="' + d_lin + '"][data-coluna="' + d_col + '"]');
+					
+					verificaColisao();
+					
 					if( (Math.min(a_lin, d_lin) >= 0) && 
 						(Math.max(a_lin, d_lin) < linhas) && 
 						(Math.min(a_col, d_col) >= 0) && 
 						(Math.max(a_col, d_col) < colunas) &&
-						!verificaColisao()){
+						!colisao_giro){
 							this['sentido'] = s;
-							this['position'].b = this['position'].d
-							this['position'].a = document.querySelector('[data-linha="' + a_lin + '"][data-coluna="' + a_col + '"]');
-							this['position'].d = document.querySelector('[data-linha="' + d_lin + '"][data-coluna="' + d_col + '"]');
+							this['position'].b = b_giro;
+							this['position'].a = a_giro;
+							this['position'].d = d_giro;
 						}
 					this['position'].a.setAttribute('data-cor', this['color']);
 					this['position'].b.setAttribute('data-cor', this['color']);
 					this['position'].c.setAttribute('data-cor', this['color']);
 					this['position'].d.setAttribute('data-cor', this['color']);
+					colisao_giro = false;
 					pintar(this);
 				},
 				'criar': function() {
@@ -535,28 +562,36 @@
 							break;
 					}
 
+					if(s == 'e'){
+						d_giro = this['position'].b;
+						b_giro = document.querySelector('[data-linha="' + b_lin + '"][data-coluna="' + b_col + '"]');
+					}
+					else{
+						b_giro = this['position'].d;
+						d_giro = document.querySelector('[data-linha="' + d_lin + '"][data-coluna="' + d_col + '"]');
+					}
+					a_giro = document.querySelector('[data-linha="' + a_lin + '"][data-coluna="' + a_col + '"]');
+					c_giro = this['position'].c
+					
+					verificaColisao();
+					
 					if( (Math.min(a_lin, b_lin, d_lin) >= 0) && 
 						(Math.max(a_lin, b_lin, d_lin) < linhas) && 
 						(Math.min(a_col, b_col, d_col) >= 0) && 
 						(Math.max(a_col, b_col, d_col) < colunas) &&
-						!verificaColisao()){
+						!colisao_giro){
 							this['sentido'] = s;
-							if(s == 'e'){
-								this['position'].d = this['position'].b;
-								this['position'].b = document.querySelector('[data-linha="' + b_lin + '"][data-coluna="' + b_col + '"]');
-							}
-							else{
-								this['position'].b = this['position'].d;
-								this['position'].d = document.querySelector('[data-linha="' + d_lin + '"][data-coluna="' + d_col + '"]');
-							}
-
-							this['position'].a = document.querySelector('[data-linha="' + a_lin + '"][data-coluna="' + a_col + '"]');
+							this['position'].a = a_giro;
+							this['position'].b = b_giro;
+							this['position'].c = c_giro;
+							this['position'].d = d_giro;
 							
 						}
 					this['position'].a.setAttribute('data-cor', this['color']);
 					this['position'].b.setAttribute('data-cor', this['color']);
 					this['position'].c.setAttribute('data-cor', this['color']);
 					this['position'].d.setAttribute('data-cor', this['color']);
+					colisao_giro = false;
 					pintar(this);
 				},
 				'criar': function() {
@@ -672,7 +707,7 @@
 				if(objeto_temp == null)
 					numeroSorte = (Math.floor((Math.random() * 10)) % (Object.values(tipos).length) );
 				
-				objeto = Object.values(tipos)[1];
+				objeto = Object.values(tipos)[numeroSorte];
 				objeto.criar();
 
 				numeroSorte = (Math.floor((Math.random() * 10)) % (Object.values(tipos).length) );
@@ -683,14 +718,14 @@
 					div.removeAttribute("style");
 				}
 
-				objeto_temp = Object.values(tipos)[1]; 
+				objeto_temp = Object.values(tipos)[numeroSorte]; 
 				objeto_temp.criar_mini();
 				
 				fim = verificaColisao();
 			}
 		}
 
-		function verificaColisao(lateral=false, direcao=0, descer=1){
+		function verificaColisao(lateral=false, girar=false, direcao=0, descer=1){
 			colisao = false;
 			a_, b_, c_, d_ = null;
 			if( objeto !== null){
@@ -714,29 +749,26 @@
 				c_ = document.querySelector('[data-linha="' + (c_lin + descer) + '"][data-coluna="' + (c_col + direcao) + '"]');
 				d_ = document.querySelector('[data-linha="' + (d_lin + descer) + '"][data-coluna="' + (d_col + direcao) + '"]');
 				
-				console.log("####################################")
-				for (var div of base) {
-					console.log(div);
-				}
-				console.log("____________________________________")
-				console.log(a_);
-				console.log(b_);
-				console.log(c_);
-				console.log(d_);
-
 				for (var i = 0; i < base.length; i++) {
 					if (base[i].isEqualNode(a_) ||
 						base[i].isEqualNode(b_) ||
 						base[i].isEqualNode(c_) ||
 						base[i].isEqualNode(d_)){
 						colisao = true;
-						//atualizarBase();
 						break;
 					}
 				}
 				
-				console.log("colisao");
-				console.log(colisao);
+				for (var i = 0; i < base.length; i++) {
+					if (base[i].isEqualNode(a_giro) ||
+						base[i].isEqualNode(b_giro) ||
+						base[i].isEqualNode(c_giro) ||
+						base[i].isEqualNode(d_giro)){
+						colisao_giro = true;
+						break;
+					}
+				}
+				
 				max_linhas = (Math.max(a_lin, b_lin, c_lin, d_lin) +1) < linhas
 				return colisao;
 			}
@@ -781,12 +813,8 @@
 			base.push(objeto.position.b);
 			base.push(objeto.position.c);
 			base.push(objeto.position.d);
-			console.log("Atualiza base");
-			console.log(objeto);
 			objeto_temp = Object.assign({},objeto);
-			console.log(objeto_temp);
 			objeto = null;
-			console.log(objeto_temp);
 		}
 
 		function removeLinhas(){
@@ -871,9 +899,9 @@
 			
 			if (key == 32 || key == 87 || key == 38){
 				if( objeto !== null){objeto.girar();}
-			} else if ((key == 37 || key == 65) && !verificaColisao(true, -1)){
+			} else if ((key == 37 || key == 65) && !verificaColisao(true, false, -1)){
 				if( objeto !== null){mover(objeto, -1);}
-			} else if ((key == 39 || key == 68) && !verificaColisao(true, 1)){
+			} else if ((key == 39 || key == 68) && !verificaColisao(true, false, 1)){
 				if( objeto !== null){mover(objeto, +1);}
 			} else if ((key == 40 || key == 83) && !verificaColisao()){
 				if( objeto !== null){
@@ -886,7 +914,7 @@
 		
 		criarCampo();
 		executarJogo();
-//	})();
+	})();
 			
 </script>
 
