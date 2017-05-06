@@ -76,7 +76,7 @@
 		var elemento_base = null;
 		var elemento_anterior = null;
 		var linhas_removidas = 0;
-		var valor_modulo = 3;
+		var valor_modulo = 10;
 		var prox_objeto = null;
 		var objeto_temp = null;
 		var temp = []
@@ -102,61 +102,72 @@
 					'd': null
 				},
 				'girar': function() {
-					limpar(this);
-					var a_col, b_col, c_col, d_col = 0;
-					var s = '';
-					var a_col = +this['position'].a.getAttribute("data-coluna");
-					var b_col = +this['position'].b.getAttribute("data-coluna");
-					var c_col = +this['position'].c.getAttribute("data-coluna");
-					var d_col = +this['position'].d.getAttribute("data-coluna");
+					if(this['position'].a != null 
+						&& this['position'].b != null
+						&& this['position'].c != null
+						&& this['position'].d != null){
+					if((this['position'].a.style.display != 'none')
+						&& (this['position'].b.style.display != 'none')
+						&& (this['position'].c.style.display != 'none')
+						&& (this['position'].d.style.display != 'none')){
+						limpar(this);
+						var a_col, b_col, c_col, d_col = 0;
+						var s = '';
+						var a_col = +this['position'].a.getAttribute("data-coluna");
+						var b_col = +this['position'].b.getAttribute("data-coluna");
+						var c_col = +this['position'].c.getAttribute("data-coluna");
+						var d_col = +this['position'].d.getAttribute("data-coluna");
 
-					var b_lin = +this['position'].b.getAttribute("data-linha");
-				
-					switch(this['sentido']){
-						case 'b':
-							b_lin -= 1;
-							s = 'e';
-							break;
-						case 'e':
-							b_col += 1;
-							s = 'c';
-							break;
-						case 'c':
-							b_lin += 1;
-							s = 'd';
-							break;
-						case 'd':
-							b_col -= 1;
-							s = 'b';
-							break;
-					}
+						var b_lin = +this['position'].b.getAttribute("data-linha");
+					
+						switch(this['sentido']){
+							case 'b':
+								b_lin -= 1;
+								s = 'e';
+								break;
+							case 'e':
+								b_col += 1;
+								s = 'c';
+								break;
+							case 'c':
+								b_lin += 1;
+								s = 'd';
+								break;
+							case 'd':
+								b_col -= 1;
+								s = 'b';
+								break;
+						}
 
-					c_giro = this['position'].d
-					d_giro = this['position'].a
-					a_giro = document.querySelector('[data-linha="' + b_lin + '"][data-coluna="' + b_col + '"]');
-					b_biro = this['position'].b
-					
-					verificaColisao();
-					
-					if(b_col < colunas && b_col >= 0 && b_lin < linhas && b_lin >= 0 && !colisao_giro){
-							this['sentido'] = s;
-							this['position'].c = c_giro;
-							this['position'].d = d_giro;
-							this['position'].a = a_giro;
+						c_giro = this['position'].d
+						d_giro = this['position'].a
+						a_giro = document.querySelector('[data-linha="' + b_lin + '"][data-coluna="' + b_col + '"]');
+						b_biro = this['position'].b
+						
+						verificaColisao();
+						
+						if(b_col < colunas && b_col >= 0 && b_lin < linhas && !colisao_giro){
+								this['sentido'] = s;
+								this['position'].c = c_giro;
+								this['position'].d = d_giro;
+								this['position'].a = a_giro;
+						}
+						this['position'].a.setAttribute('data-cor', this['color']);
+						this['position'].b.setAttribute('data-cor', this['color']);
+						this['position'].c.setAttribute('data-cor', this['color']);
+						this['position'].d.setAttribute('data-cor', this['color']);
+
+						colisao_giro = false;
+						pintar(this);
 					}
-					this['position'].a.setAttribute('data-cor', this['color']);
-					this['position'].b.setAttribute('data-cor', this['color']);
-					this['position'].c.setAttribute('data-cor', this['color']);
-					this['position'].d.setAttribute('data-cor', this['color']);
-					colisao_giro = false;
-					pintar(this);
+				}
 				},
 				'criar': function() {
 					this['sentido'] = 'b';
-					this['position'].a = document.querySelector('[data-linha="0"][data-coluna="3"]');
-					this['position'].b = document.querySelector('[data-linha="0"][data-coluna="4"]');
-					this['position'].c = document.querySelector('[data-linha="0"][data-coluna="5"]');
-					this['position'].d = document.querySelector('[data-linha="1"][data-coluna="4"]');
+					this['position'].a = document.querySelector('[data-linha="-4"][data-coluna="3"]');
+					this['position'].b = document.querySelector('[data-linha="-4"][data-coluna="4"]');
+					this['position'].c = document.querySelector('[data-linha="-4"][data-coluna="5"]');
+					this['position'].d = document.querySelector('[data-linha="-3"][data-coluna="4"]');
 					this['position'].a.setAttribute('data-cor', this['color']);
 					this['position'].b.setAttribute('data-cor', this['color']);
 					this['position'].c.setAttribute('data-cor', this['color']);
@@ -189,70 +200,79 @@
 					'd': null
 				},
 				'girar': function() {
-					limpar(this);
-					var s = '';
-					var a_col, b_col, d_col = 0;
-					var a_lin, b_lin, d_lin = 0;
+					if(this['position'].a != null 
+						&& this['position'].b != null
+						&& this['position'].c != null
+						&& this['position'].d != null){
+					if((this['position'].a.style.display != 'none')
+						&& (this['position'].b.style.display != 'none')
+						&& (this['position'].c.style.display != 'none')
+						&& (this['position'].d.style.display != 'none')){
+						limpar(this);
+						var s = '';
+						var a_col, b_col, d_col = 0;
+						var a_lin, b_lin, d_lin = 0;
 
-					a_col = +this['position'].a.getAttribute("data-coluna");
-					b_col = +this['position'].b.getAttribute("data-coluna");
-					d_col = +this['position'].d.getAttribute("data-coluna");
+						a_col = +this['position'].a.getAttribute("data-coluna");
+						b_col = +this['position'].b.getAttribute("data-coluna");
+						d_col = +this['position'].d.getAttribute("data-coluna");
 
-					a_lin = +this['position'].a.getAttribute("data-linha");
-					b_lin = +this['position'].b.getAttribute("data-linha");
-					d_lin = +this['position'].d.getAttribute("data-linha");
-				
-					switch(this['sentido']){
-						case 'l':
-							a_lin -= 2;
-							a_col += 2;
-							b_lin -= 1;
-							b_col += 1;
-							d_lin += 1;
-							d_col -= 1;
-							s = 'b';
-							break;
-						case 'b':
-							a_lin += 2;
-							a_col -= 2;
-							b_lin += 1;
-							b_col -= 1;
-							d_lin -= 1;
-							d_col += 1;
-							s = 'l';
-							break;
-					}
-
-					a_giro = document.querySelector('[data-linha="' + a_lin + '"][data-coluna="' + a_col + '"]');
-					b_giro = document.querySelector('[data-linha="' + b_lin + '"][data-coluna="' + b_col + '"]');
-					c_giro = this['position'].c
-					d_giro = document.querySelector('[data-linha="' + d_lin + '"][data-coluna="' + d_col + '"]');
+						a_lin = +this['position'].a.getAttribute("data-linha");
+						b_lin = +this['position'].b.getAttribute("data-linha");
+						d_lin = +this['position'].d.getAttribute("data-linha");
 					
-					verificaColisao();
-					
-					if( (Math.min(a_lin, b_lin, d_lin) >= 0) && 
-						(Math.max(a_lin, b_lin, d_lin) < linhas) && 
-						(Math.min(a_col, b_col, d_col) >= 0) && 
-						(Math.max(a_col, b_col, d_col) < colunas) &&
-						!colisao_giro){
-							this['sentido'] = s;
-							this['position'].a = a_giro;
-							this['position'].b = b_giro;
-							this['position'].d = d_giro;
+						switch(this['sentido']){
+							case 'l':
+								a_lin -= 2;
+								a_col += 2;
+								b_lin -= 1;
+								b_col += 1;
+								d_lin += 1;
+								d_col -= 1;
+								s = 'b';
+								break;
+							case 'b':
+								a_lin += 2;
+								a_col -= 2;
+								b_lin += 1;
+								b_col -= 1;
+								d_lin -= 1;
+								d_col += 1;
+								s = 'l';
+								break;
 						}
-					this['position'].a.setAttribute('data-cor', this['color']);
-					this['position'].b.setAttribute('data-cor', this['color']);
-					this['position'].c.setAttribute('data-cor', this['color']);
-					this['position'].d.setAttribute('data-cor', this['color']);
-					colisao_giro = false;
-					pintar(this);
+
+						a_giro = document.querySelector('[data-linha="' + a_lin + '"][data-coluna="' + a_col + '"]');
+						b_giro = document.querySelector('[data-linha="' + b_lin + '"][data-coluna="' + b_col + '"]');
+						c_giro = this['position'].c
+						d_giro = document.querySelector('[data-linha="' + d_lin + '"][data-coluna="' + d_col + '"]');
+						
+						verificaColisao();
+						
+						if( (Math.max(a_lin, b_lin, d_lin) < linhas) && 
+							(Math.min(a_col, b_col, d_col) >= 0) && 
+							(Math.max(a_col, b_col, d_col) < colunas) &&
+							!colisao_giro){
+								this['sentido'] = s;
+								this['position'].a = a_giro;
+								this['position'].b = b_giro;
+								this['position'].d = d_giro;
+							}
+						this['position'].a.setAttribute('data-cor', this['color']);
+						this['position'].b.setAttribute('data-cor', this['color']);
+						this['position'].c.setAttribute('data-cor', this['color']);
+						this['position'].d.setAttribute('data-cor', this['color']);
+						colisao_giro = false;
+						pintar(this);
+					}
+				}
 				},
 				'criar': function() {
 					this['sentido'] = 'b';
-					this['position'].a = document.querySelector('[data-linha="0"][data-coluna="5"]');
-					this['position'].b = document.querySelector('[data-linha="1"][data-coluna="5"]');
-					this['position'].c = document.querySelector('[data-linha="2"][data-coluna="5"]');
-					this['position'].d = document.querySelector('[data-linha="3"][data-coluna="5"]');
+					this['position'].a = document.querySelector('[data-linha="-4"][data-coluna="5"]');
+					this['position'].b = document.querySelector('[data-linha="-3"][data-coluna="5"]');
+					this['position'].c = document.querySelector('[data-linha="-2"][data-coluna="5"]');
+					this['position'].d = document.querySelector('[data-linha="-1"][data-coluna="5"]');
 					this['position'].a.setAttribute('data-cor', this['color']);
 					this['position'].b.setAttribute('data-cor', this['color']);
 					this['position'].c.setAttribute('data-cor', this['color']);
@@ -285,15 +305,25 @@
 					'd': null
 				},
 				'girar': function() {
-					pintar(this);
-					colisao_giro = false;
+					if(this['position'].a != null 
+						&& this['position'].b != null
+						&& this['position'].c != null
+						&& this['position'].d != null){
+					if((this['position'].a.style.display != 'none')
+						&& (this['position'].b.style.display != 'none')
+						&& (this['position'].c.style.display != 'none')
+						&& (this['position'].d.style.display != 'none')){
+						pintar(this);
+						colisao_giro = false;
+					}
+				}
 				},
 				'criar': function() {
 					this['sentido'] = 'b';
-					this['position'].a = document.querySelector('[data-linha="0"][data-coluna="4"]');
-					this['position'].b = document.querySelector('[data-linha="0"][data-coluna="5"]');
-					this['position'].c = document.querySelector('[data-linha="1"][data-coluna="4"]');
-					this['position'].d = document.querySelector('[data-linha="1"][data-coluna="5"]');
+					this['position'].a = document.querySelector('[data-linha="-4"][data-coluna="4"]');
+					this['position'].b = document.querySelector('[data-linha="-4"][data-coluna="5"]');
+					this['position'].c = document.querySelector('[data-linha="-3"][data-coluna="4"]');
+					this['position'].d = document.querySelector('[data-linha="-3"][data-coluna="5"]');
 					this['position'].a.setAttribute('data-cor', this['color']);
 					this['position'].b.setAttribute('data-cor', this['color']);
 					this['position'].c.setAttribute('data-cor', this['color']);
@@ -326,78 +356,87 @@
 					'd': null
 				},
 				'girar': function() {
-					limpar(this);
-					var s = '';
-					var a_col, b_col = 0;
-					var a_lin, b_lin = 0;
+					if(this['position'].a != null 
+						&& this['position'].b != null
+						&& this['position'].c != null
+						&& this['position'].d != null){
+					if((this['position'].a.style.display != 'none')
+						&& (this['position'].b.style.display != 'none')
+						&& (this['position'].c.style.display != 'none')
+						&& (this['position'].d.style.display != 'none')){
+						limpar(this);
+						var s = '';
+						var a_col, b_col = 0;
+						var a_lin, b_lin = 0;
 
-					a_col = +this['position'].a.getAttribute("data-coluna");
-					b_col = +this['position'].b.getAttribute("data-coluna");
-					
-					a_lin = +this['position'].a.getAttribute("data-linha");
-					b_lin = +this['position'].b.getAttribute("data-linha");
-					
-					switch(this['sentido']){
-						case 'b':
-							a_lin += 2;
-							a_col += 2;
-							b_lin += 1;
-							b_col += 1;
-							s = 'e';
-							break;
-						case 'e':
-							a_lin += 2;
-							a_col -= 2;
-							b_lin += 1;
-							b_col -= 1;
-							s = 'c';
-							break;
-						case 'c':
-							a_lin -= 2;
-							a_col -= 2;
-							b_lin -= 1;
-							b_col -= 1;
-							s = 'd';
-							break;
-						case 'd':
-							a_lin -= 2;
-							a_col += 2;
-							b_lin -= 1;
-							b_col += 1;
-							s = 'b';
-							break;
-					}
-
-					d_giro = this['position'].b;
-					a_giro = document.querySelector('[data-linha="' + a_lin + '"][data-coluna="' + a_col + '"]');
-					b_giro = document.querySelector('[data-linha="' + b_lin + '"][data-coluna="' + b_col + '"]');
-					c_giro = this['position'].c;
-					
-					verificaColisao();
-					
-					if( (Math.min(a_lin, b_lin) >= 0) && 
-						(Math.max(a_lin, b_lin) < linhas) && 
-						(Math.min(a_col, b_col) >= 0) && 
-						(Math.max(a_col, b_col) < colunas) &&
-						!colisao_giro){
-							this['sentido'] = s;
-							this['position'].d = d_giro;
-							this['position'].a = a_giro;
-							this['position'].b = b_giro;
+						a_col = +this['position'].a.getAttribute("data-coluna");
+						b_col = +this['position'].b.getAttribute("data-coluna");
+						
+						a_lin = +this['position'].a.getAttribute("data-linha");
+						b_lin = +this['position'].b.getAttribute("data-linha");
+						
+						switch(this['sentido']){
+							case 'b':
+								a_lin += 2;
+								a_col += 2;
+								b_lin += 1;
+								b_col += 1;
+								s = 'e';
+								break;
+							case 'e':
+								a_lin += 2;
+								a_col -= 2;
+								b_lin += 1;
+								b_col -= 1;
+								s = 'c';
+								break;
+							case 'c':
+								a_lin -= 2;
+								a_col -= 2;
+								b_lin -= 1;
+								b_col -= 1;
+								s = 'd';
+								break;
+							case 'd':
+								a_lin -= 2;
+								a_col += 2;
+								b_lin -= 1;
+								b_col += 1;
+								s = 'b';
+								break;
 						}
-					this['position'].a.setAttribute('data-cor', this['color']);
-					this['position'].b.setAttribute('data-cor', this['color']);
-					this['position'].c.setAttribute('data-cor', this['color']);
-					this['position'].d.setAttribute('data-cor', this['color']);
-					colisao_giro = false;
-					pintar(this);
+
+						d_giro = this['position'].b;
+						a_giro = document.querySelector('[data-linha="' + a_lin + '"][data-coluna="' + a_col + '"]');
+						b_giro = document.querySelector('[data-linha="' + b_lin + '"][data-coluna="' + b_col + '"]');
+						c_giro = this['position'].c;
+						
+						verificaColisao();
+						
+						if( (Math.max(a_lin, b_lin) < linhas) && 
+							(Math.min(a_col, b_col) >= 0) && 
+							(Math.max(a_col, b_col) < colunas) &&
+							!colisao_giro){
+								this['sentido'] = s;
+								this['position'].d = d_giro;
+								this['position'].a = a_giro;
+								this['position'].b = b_giro;
+							}
+						this['position'].a.setAttribute('data-cor', this['color']);
+						this['position'].b.setAttribute('data-cor', this['color']);
+						this['position'].c.setAttribute('data-cor', this['color']);
+						this['position'].d.setAttribute('data-cor', this['color']);
+						colisao_giro = false;
+						pintar(this);
+					}
+				}
 				},
 				'criar': function() {
 					this['sentido'] = 'b';
-					this['position'].a = document.querySelector('[data-linha="0"][data-coluna="5"]');
-					this['position'].b = document.querySelector('[data-linha="1"][data-coluna="5"]');
-					this['position'].c = document.querySelector('[data-linha="2"][data-coluna="5"]');
-					this['position'].d = document.querySelector('[data-linha="2"][data-coluna="4"]');
+					this['position'].a = document.querySelector('[data-linha="-4"][data-coluna="5"]');
+					this['position'].b = document.querySelector('[data-linha="-3"][data-coluna="5"]');
+					this['position'].c = document.querySelector('[data-linha="-2"][data-coluna="5"]');
+					this['position'].d = document.querySelector('[data-linha="-2"][data-coluna="4"]');
 					this['position'].a.setAttribute('data-cor', this['color']);
 					this['position'].b.setAttribute('data-cor', this['color']);
 					this['position'].c.setAttribute('data-cor', this['color']);
@@ -430,78 +469,87 @@
 					'd': null
 				},
 				'girar': function() {
-					limpar(this);
-					var s = '';
-					var a_col, d_col = 0;
-					var a_lin, d_lin = 0;
+					if(this['position'].a != null 
+						&& this['position'].b != null
+						&& this['position'].c != null
+						&& this['position'].d != null){
+					if((this['position'].a.style.display != 'none')
+						&& (this['position'].b.style.display != 'none')
+						&& (this['position'].c.style.display != 'none')
+						&& (this['position'].d.style.display != 'none')){
+						limpar(this);
+						var s = '';
+						var a_col, d_col = 0;
+						var a_lin, d_lin = 0;
 
-					a_col = +this['position'].a.getAttribute("data-coluna");
-					d_col = +this['position'].d.getAttribute("data-coluna");
-					
-					a_lin = +this['position'].a.getAttribute("data-linha");
-					d_lin = +this['position'].d.getAttribute("data-linha");
-					
-					switch(this['sentido']){
-						case 'b':
-							a_lin += 2;
-							a_col += 2;
-							d_lin += 1;
-							d_col -= 1;
-							s = 'e';
-							break;
-						case 'e':
-							a_lin += 2;
-							a_col -= 2;
-							d_lin -= 1;
-							d_col -= 1;
-							s = 'c';
-							break;
-						case 'c':
-							a_lin -= 2;
-							a_col -= 2;
-							d_lin -= 1;
-							d_col += 1;
-							s = 'd';
-							break;
-						case 'd':
-							a_lin -= 2;
-							a_col += 2;
-							d_lin += 1;
-							d_col += 1;
-							s = 'b';
-							break;
-					}
-
-					c_giro = this['position'].c;
-					b_giro = this['position'].d;
-					a_giro = document.querySelector('[data-linha="' + a_lin + '"][data-coluna="' + a_col + '"]');
-					d_giro = document.querySelector('[data-linha="' + d_lin + '"][data-coluna="' + d_col + '"]');
-					
-					verificaColisao();
-					
-					if( (Math.min(a_lin, d_lin) >= 0) && 
-						(Math.max(a_lin, d_lin) < linhas) && 
-						(Math.min(a_col, d_col) >= 0) && 
-						(Math.max(a_col, d_col) < colunas) &&
-						!colisao_giro){
-							this['sentido'] = s;
-							this['position'].b = b_giro;
-							this['position'].a = a_giro;
-							this['position'].d = d_giro;
+						a_col = +this['position'].a.getAttribute("data-coluna");
+						d_col = +this['position'].d.getAttribute("data-coluna");
+						
+						a_lin = +this['position'].a.getAttribute("data-linha");
+						d_lin = +this['position'].d.getAttribute("data-linha");
+						
+						switch(this['sentido']){
+							case 'b':
+								a_lin += 2;
+								a_col += 2;
+								d_lin += 1;
+								d_col -= 1;
+								s = 'e';
+								break;
+							case 'e':
+								a_lin += 2;
+								a_col -= 2;
+								d_lin -= 1;
+								d_col -= 1;
+								s = 'c';
+								break;
+							case 'c':
+								a_lin -= 2;
+								a_col -= 2;
+								d_lin -= 1;
+								d_col += 1;
+								s = 'd';
+								break;
+							case 'd':
+								a_lin -= 2;
+								a_col += 2;
+								d_lin += 1;
+								d_col += 1;
+								s = 'b';
+								break;
 						}
-					this['position'].a.setAttribute('data-cor', this['color']);
-					this['position'].b.setAttribute('data-cor', this['color']);
-					this['position'].c.setAttribute('data-cor', this['color']);
-					this['position'].d.setAttribute('data-cor', this['color']);
-					colisao_giro = false;
-					pintar(this);
+
+						c_giro = this['position'].c;
+						b_giro = this['position'].d;
+						a_giro = document.querySelector('[data-linha="' + a_lin + '"][data-coluna="' + a_col + '"]');
+						d_giro = document.querySelector('[data-linha="' + d_lin + '"][data-coluna="' + d_col + '"]');
+						
+						verificaColisao();
+						
+						if( (Math.max(a_lin, d_lin) < linhas) && 
+							(Math.min(a_col, d_col) >= 0) && 
+							(Math.max(a_col, d_col) < colunas) &&
+							!colisao_giro){
+								this['sentido'] = s;
+								this['position'].b = b_giro;
+								this['position'].a = a_giro;
+								this['position'].d = d_giro;
+							}
+						this['position'].a.setAttribute('data-cor', this['color']);
+						this['position'].b.setAttribute('data-cor', this['color']);
+						this['position'].c.setAttribute('data-cor', this['color']);
+						this['position'].d.setAttribute('data-cor', this['color']);
+						colisao_giro = false;
+						pintar(this);
+					}
+				}
 				},
 				'criar': function() {
 					this['sentido'] = 'b';
-					this['position'].a = document.querySelector('[data-linha="0"][data-coluna="5"]');
-					this['position'].b = document.querySelector('[data-linha="1"][data-coluna="5"]');
-					this['position'].c = document.querySelector('[data-linha="2"][data-coluna="5"]');
-					this['position'].d = document.querySelector('[data-linha="2"][data-coluna="6"]');
+					this['position'].a = document.querySelector('[data-linha="-4"][data-coluna="5"]');
+					this['position'].b = document.querySelector('[data-linha="-3"][data-coluna="5"]');
+					this['position'].c = document.querySelector('[data-linha="-2"][data-coluna="5"]');
+					this['position'].d = document.querySelector('[data-linha="-2"][data-coluna="6"]');
 					this['position'].a.setAttribute('data-cor', this['color']);
 					this['position'].b.setAttribute('data-cor', this['color']);
 					this['position'].c.setAttribute('data-cor', this['color']);
@@ -534,72 +582,81 @@
 					'd': null
 				},
 				'girar': function() {
-					limpar(this);
-					var s = '';
-					var a_col, b_col, d_col = 0;
-					var a_lin, b_lin, d_lin = 0;
+					if(this['position'].a != null 
+						&& this['position'].b != null
+						&& this['position'].c != null
+						&& this['position'].d != null){
+					if((this['position'].a.style.display != 'none')
+						&& (this['position'].b.style.display != 'none')
+						&& (this['position'].c.style.display != 'none')
+						&& (this['position'].d.style.display != 'none')){
+						limpar(this);
+						var s = '';
+						var a_col, b_col, d_col = 0;
+						var a_lin, b_lin, d_lin = 0;
 
-					a_col = +this['position'].a.getAttribute("data-coluna");
-					b_col = +this['position'].b.getAttribute("data-coluna");
-					d_col = +this['position'].d.getAttribute("data-coluna");
+						a_col = +this['position'].a.getAttribute("data-coluna");
+						b_col = +this['position'].b.getAttribute("data-coluna");
+						d_col = +this['position'].d.getAttribute("data-coluna");
 
-					a_lin = +this['position'].a.getAttribute("data-linha");
-					b_lin = +this['position'].b.getAttribute("data-linha");
-					d_lin = +this['position'].d.getAttribute("data-linha");
-					
-					switch(this['sentido']){
-						case 'b':
-							a_lin += 2;
-							b_lin += 1;
-							b_col += 1;
-							s = 'e';
-							break;
-						case 'e':
-							a_lin -= 2;
-							d_col -= 1;
-							d_lin += 1;
-							s = 'b';
-							break;
-					}
-
-					if(s == 'e'){
-						d_giro = this['position'].b;
-						b_giro = document.querySelector('[data-linha="' + b_lin + '"][data-coluna="' + b_col + '"]');
-					}
-					else{
-						b_giro = this['position'].d;
-						d_giro = document.querySelector('[data-linha="' + d_lin + '"][data-coluna="' + d_col + '"]');
-					}
-					a_giro = document.querySelector('[data-linha="' + a_lin + '"][data-coluna="' + a_col + '"]');
-					c_giro = this['position'].c
-					
-					verificaColisao();
-					
-					if( (Math.min(a_lin, b_lin, d_lin) >= 0) && 
-						(Math.max(a_lin, b_lin, d_lin) < linhas) && 
-						(Math.min(a_col, b_col, d_col) >= 0) && 
-						(Math.max(a_col, b_col, d_col) < colunas) &&
-						!colisao_giro){
-							this['sentido'] = s;
-							this['position'].a = a_giro;
-							this['position'].b = b_giro;
-							this['position'].c = c_giro;
-							this['position'].d = d_giro;
-							
+						a_lin = +this['position'].a.getAttribute("data-linha");
+						b_lin = +this['position'].b.getAttribute("data-linha");
+						d_lin = +this['position'].d.getAttribute("data-linha");
+						
+						switch(this['sentido']){
+							case 'b':
+								a_lin += 2;
+								b_lin += 1;
+								b_col += 1;
+								s = 'e';
+								break;
+							case 'e':
+								a_lin -= 2;
+								d_col -= 1;
+								d_lin += 1;
+								s = 'b';
+								break;
 						}
-					this['position'].a.setAttribute('data-cor', this['color']);
-					this['position'].b.setAttribute('data-cor', this['color']);
-					this['position'].c.setAttribute('data-cor', this['color']);
-					this['position'].d.setAttribute('data-cor', this['color']);
-					colisao_giro = false;
-					pintar(this);
+
+						if(s == 'e'){
+							d_giro = this['position'].b;
+							b_giro = document.querySelector('[data-linha="' + b_lin + '"][data-coluna="' + b_col + '"]');
+						}
+						else{
+							b_giro = this['position'].d;
+							d_giro = document.querySelector('[data-linha="' + d_lin + '"][data-coluna="' + d_col + '"]');
+						}
+						a_giro = document.querySelector('[data-linha="' + a_lin + '"][data-coluna="' + a_col + '"]');
+						c_giro = this['position'].c
+						
+						verificaColisao();
+						
+						if( (Math.max(a_lin, b_lin, d_lin) < linhas) && 
+							(Math.min(a_col, b_col, d_col) >= 0) && 
+							(Math.max(a_col, b_col, d_col) < colunas) &&
+							!colisao_giro){
+								this['sentido'] = s;
+								this['position'].a = a_giro;
+								this['position'].b = b_giro;
+								this['position'].c = c_giro;
+								this['position'].d = d_giro;
+								
+							}
+						this['position'].a.setAttribute('data-cor', this['color']);
+						this['position'].b.setAttribute('data-cor', this['color']);
+						this['position'].c.setAttribute('data-cor', this['color']);
+						this['position'].d.setAttribute('data-cor', this['color']);
+						colisao_giro = false;
+						pintar(this);
+					}
+				}
 				},
 				'criar': function() {
 					this['sentido'] = 'b';
-					this['position'].a = document.querySelector('[data-linha="0"][data-coluna="5"]');
-					this['position'].b = document.querySelector('[data-linha="0"][data-coluna="4"]');
-					this['position'].c = document.querySelector('[data-linha="1"][data-coluna="4"]');
-					this['position'].d = document.querySelector('[data-linha="1"][data-coluna="3"]');
+					this['position'].a = document.querySelector('[data-linha="-4"][data-coluna="5"]');
+					this['position'].b = document.querySelector('[data-linha="-4"][data-coluna="4"]');
+					this['position'].c = document.querySelector('[data-linha="-3"][data-coluna="4"]');
+					this['position'].d = document.querySelector('[data-linha="-3"][data-coluna="3"]');
 					this['position'].a.setAttribute('data-cor', this['color']);
 					this['position'].b.setAttribute('data-cor', this['color']);
 					this['position'].c.setAttribute('data-cor', this['color']);
@@ -656,24 +713,63 @@
 		}
 
 		function limpar(obj){
-			obj.position.a.removeAttribute("style");
-			obj.position.b.removeAttribute("style");
-			obj.position.c.removeAttribute("style");
-			obj.position.d.removeAttribute("style");
+			if(obj.position.a != null)
+				obj.position.a.removeAttribute("style");
+
+			if(obj.position.b != null)
+				obj.position.b.removeAttribute("style");
+
+			if(obj.position.c != null)
+				obj.position.c.removeAttribute("style");
+
+			if(obj.position.d != null)
+				obj.position.d.removeAttribute("style");
 		}
 
 		function pintar(obj){
-			obj.position.a.style.backgroundColor = obj.color;
-			obj.position.b.style.backgroundColor = obj.color;
-			obj.position.c.style.backgroundColor = obj.color;
-			obj.position.d.style.backgroundColor = obj.color;
-			obj.position.a.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
-			obj.position.b.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
-			obj.position.c.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
-			obj.position.d.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+			if(obj.position.a != null){
+				if( +obj.position.a.getAttribute("data-linha") > -1){
+					obj.position.a.style.backgroundColor = obj.color;
+					obj.position.a.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+				}
+			}
+
+			if(obj.position.b != null){
+				if( +obj.position.b.getAttribute("data-linha") > -1){
+					obj.position.b.style.backgroundColor = obj.color;
+					obj.position.b.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+				}
+			}
+
+			if(obj.position.c != null){
+				if( +obj.position.c.getAttribute("data-linha") > -1){
+					obj.position.c.style.backgroundColor = obj.color;
+					obj.position.c.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+				}
+			}
+
+			if(obj.position.a != null){
+				if( +obj.position.d.getAttribute("data-linha") > -1){
+					obj.position.d.style.backgroundColor = obj.color;
+					obj.position.d.style.boxShadow = "inset 0px 0px 2px 2px rgba(0,0,0,0.5)";
+				}
+			}
 		}
 
 		function criarCampo(){
+			for (i = -4; i < 0; i++) { 
+				var divLinha = document.createElement('div');
+				divLinha.setAttribute('id', 'linha' + i);
+				document.getElementById("campoJogo").appendChild(divLinha);
+				for (j = 0; j < colunas; j++) { 
+					var div = document.createElement('div');
+					div.setAttribute('data-linha', i);
+					div.setAttribute('data-coluna', j);
+					div.style.display= "none";
+					document.getElementById("linha"+i).appendChild(div);
+				}
+			}
+
 			for (i = 0; i < linhas; i++) { 
 				var divLinha = document.createElement('div');
 				divLinha.setAttribute('id', 'linha' + i);
@@ -683,6 +779,8 @@
 					div.className = 'campo';
 					div.setAttribute('data-linha', i);
 					div.setAttribute('data-coluna', j);
+					if (i<0)
+						div.style.display= "none";
 					document.getElementById("linha"+i).appendChild(div);
 				}
 			}
@@ -708,6 +806,7 @@
 					numeroSorte = (Math.floor((Math.random() * 10)) % (Object.values(tipos).length) );
 				
 				objeto = Object.values(tipos)[numeroSorte];
+				
 				objeto.criar();
 
 				numeroSorte = (Math.floor((Math.random() * 10)) % (Object.values(tipos).length) );
@@ -719,6 +818,7 @@
 				}
 
 				objeto_temp = Object.values(tipos)[numeroSorte]; 
+				
 				objeto_temp.criar_mini();
 				
 				fim = verificaColisao();
@@ -741,8 +841,6 @@
 		
 				if(lateral)
 					descer = 0;
-				
-				//tem que verificar se ele bate quando girar o elemento
 				
 				a_ = document.querySelector('[data-linha="' + (a_lin + descer) + '"][data-coluna="' + (a_col + direcao) + '"]');
 				b_ = document.querySelector('[data-linha="' + (b_lin + descer) + '"][data-coluna="' + (b_col + direcao) + '"]');
@@ -818,6 +916,8 @@
 		}
 
 		function removeLinhas(){
+			var combo = 0;
+
 			for (var i = 0; i < linhas; i++) {
 				removerLinhas[i] = 0;
 			}
@@ -838,6 +938,13 @@
 					});
 				}
 			}
+
+			for (var i = 0; i < removerLinhas.length; i++) {
+				if(removerLinhas[i] == 10)
+					combo += 1;
+			}
+
+			linhas_removidas += Math.floor(combo / 4) * 2;
 
 			for (var i = (removerLinhas.length -1); i > 0; i--) {
 				if(removerLinhas[i] == colunas){
@@ -868,7 +975,7 @@
 			document.getElementById("pontos").innerText = 'Pontos: ' + pontos
 			document.getElementById("nivel").innerText = 'Nivel: ' + nivel
 			if(speed > 50){
-				speed = speed_base - (nivel * 10)
+				speed = speed_base - (nivel * 80)
 			}
 		}
 
@@ -887,8 +994,8 @@
 					executarJogo();
 				} else {
 					setTimeout(function() {
-						//if(!alert("Voce perdeu! Sua pontuacao foi de: " + pontos)) 
-							//document.location.reload();
+						if(!alert("Voce perdeu! Sua pontuacao foi de: " + pontos)) 
+							document.location.reload();
 					}, 10);
 				}
 			}, speed)
@@ -917,4 +1024,3 @@
 	})();
 			
 </script>
-
