@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucas Pires Simão</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/snakeStyle.css">
+
+    <!-- <meta http-equiv="refresh" content="1"> -->
+</head>
+
+<body>
+    <header>
+        <ul class="topnav">
+            <li class="active"><a href="portifolio.html">Portfolio</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="index.html">About</a></li>
+        </ul>
+    </header>
+
+    <div id="bodyContent">
+        <section>
+            <button onclick="toggle('snake')" type="button"> SNAKE </button>
+        </section>
+
+        <aside id="sideContent">
+
+            <article id="snake">
+                <div>
+                    <div id='externo'>
+                        <div id='campoJogo'></div>
+                        <div id='proxPeca'></div>
+                        <div id='pontos'>Pontos: 0</div>
+                        <div id='nivel'>Nivel: 0</div>
+                    </div>
+                    <button onclick="gameSnake()" type="button"> START </button>
+                </div>
+            </article>
+
+
+
+        </aside>
+
+    </div>
+
+    <script src="js/scripts.js"></script>
+    <script src="js/snakeGame.js"></script>
+</body>
+
+</html>
