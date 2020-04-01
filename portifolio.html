@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lucas Pires Simão</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/snakeStyle.css">
+    <link rel="stylesheet" type="text/css" href="css/tetrisStyle.css">
 
     <!-- <meta http-equiv="refresh" content="1"> -->
 </head>
@@ -22,12 +22,12 @@
 
     <div id="bodyContent">
         <section>
-            <button onclick="toggle('snake')" type="button"> SNAKE </button>
+            <button onclick="toggle('tetris')" type="button"> TETRIS </button>
         </section>
 
         <aside id="sideContent">
 
-            <article id="snake">
+            <article id="tetris" style="display: none;">
                 <div>
                     <div id='externo'>
                         <div id='campoJogo'></div>
@@ -46,7 +46,7 @@
     </div>
 
     <script src="js/scripts.js"></script>
-    <script src="js/snakeGame.js"></script>
+    <script src="js/tetrisGame.js"></script>
 </body>
 
 </html>
