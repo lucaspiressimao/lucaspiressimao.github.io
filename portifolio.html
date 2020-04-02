@@ -23,6 +23,7 @@
     <div id="bodyContent">
         <section>
             <button onclick="toggle('tetris')" type="button"> TETRIS </button>
+            <button onclick="toggle('droplet')" type="button"> GOTA </button>
         </section>
 
         <aside id="sideContent">
@@ -39,11 +40,19 @@
                 </div>
             </article>
 
+            <article id="droplet" style="display: none;">
+                <div>
+                    <iframe width="600" height="450"
+                        src="https://jsfiddle.net/lucaspiressimao/yzbsqkg0/127/embedded/result/dark"
+                        allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+                </div>
+            </article>
 
 
         </aside>
 
     </div>
+
 
     <script src="js/scripts.js"></script>
     <script src="js/tetrisGame.js"></script>
