@@ -8,22 +8,7 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <header>
-        <h1>Lucas Pires Simão</h1>
-        <nav>
-            <ul>
-                <li><a href="index-en.html">Home</a></li>
-                <li><a href="experience-en.html">Experience</a></li>
-                <li><a href="education-en.html">Education</a></li>
-                <li><a href="skills-en.html">Skills</a></li>
-                <li><a href="projects-en.html">Projects</a></li>
-                <li><a href="contact-en.html">Contact</a></li>
-            </ul>
-        </nav>
-        <div class="language-switch">
-            <button onclick="switchLanguage('pt')">Português</button>
-        </div>
-    </header>
+    <div w3-include-html="header-en.html"></div>
     <main>
         <section id="education">
             <h2>Education</h2>
@@ -36,8 +21,11 @@
             </ul>
         </section>
     </main>
-    <footer>
-        <p>&copy; 2024 Lucas Pires Simão</p>
-    </footer>
+    <div w3-include-html="footer-en.html"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            includeHTML();
+        });
+    </script>
 </body>
 </html>
