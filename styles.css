@@ -27,6 +27,22 @@ nav ul li a {
     text-decoration: none;
 }
 
+.language-switch {
+    margin-top: 1rem;
+}
+
+.language-switch button {
+    background-color: #fff;
+    border: 1px solid #333;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.language-switch button:hover {
+    background-color: #333;
+    color: #fff;
+}
+
 main {
     margin: 2rem;
 }
