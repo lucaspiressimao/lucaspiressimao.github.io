@@ -1,25 +1,300 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lucas Pires Simão</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
 </head>
+
+
 <body>
-    <div id="header" w3-include-html="header.html"></div>
-    <main>
-        <section id="about">
-            <h2>Sobre Mim</h2>
-            <p>Olá, meu nome é Lucas Pires Simão. Sou DevOps na empresa Qikserve. Tenho experiência em gerenciamento de infraestrutura em nuvem, automação de processos e melhoria contínua de sistemas.</p>
-        </section>
-    </main>
-    <div id="footer" w3-include-html="footer.html"></div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            includeHTML();
-        });
-    </script>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="profile-container">
+                <div class="profile">
+                    <img src="images/profile.jpg" alt="Lucas P Simão Profile Picture">
+                </div>
+                <p class="name">Lucas P Simão</p>
+            </div>
+            <ul>
+                <li><a href="#about" class="menu-item">About Me</a></li>
+                <li><a href="#experience" class="menu-item">Experience</a></li>
+                <li><a href="#projects" class="menu-item">Projects</a></li>
+            </ul>
+            <div class="social">
+                <a href="https://www.linkedin.com/in/lucaspiressimao/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/lucaspiressimao" target="_blank"><i class="fab fa-github"></i></a>
+            </div>
+        </nav>
+        <div class="menu-icon" id="menu-icon">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="content">
+            <div class="sections-container">
+                <section id="about">
+                    <div class="title">
+                        <h1 class="background-text">ABOUT ME</h1>
+                        <h2 class="foreground-text">LUCAS PIRES SIMÃO</h2>
+                    </div>
+                    <div class="about-container">
+                        <div class="about-content-container">
+                            <div class="about-line"></div> <!-- Linha vermelha -->
+                            <div class="about-content">
+                                <p>Hello, I am Lucas Pires Simão, a DevOps engineer passionate about innovation and
+                                    technology. With over 10 years of experience, I have specialized in developing
+                                    efficient and scalable solutions, facing challenges in companies of various sizes
+                                    and structures. My career is marked by the implementation of infrastructures and
+                                    tools, mainly AWS, and the promotion of the DevOps culture. I value collaboration
+                                    and the constant pursuit of improvement, whether in automation with Terraform or in
+                                    implementing practices that increase the frequency of deployment.</p>
+                                <p>Beyond my technical expertise, I dedicate myself to continuous learning and the
+                                    development of interpersonal and leadership skills. I follow market innovations and
+                                    am always looking for new ways to contribute to the DevOps community, to whom I owe
+                                    much of my learning. Outside of the professional environment, my hobbies are also
+                                    oriented towards technology and innovation but within the maker world. I thank
+                                    everyone who takes an interest in my professional journey and am open to new
+                                    connections and opportunities to jointly drive innovation in DevOps. Check out my
+                                    profile.</p>
+                            </div>
+                        </div>
+                        <div class="about-info">
+                            <blockquote class="quote">"We are what we repeatedly do. Excellence, then, is not an act,
+                                but a habit." - Aristotle</blockquote>
+                            <a href="docs/CurriculumLucasPiresSimao.pdf" class="download-cv-button" target="_blank">Download CV</a>
+                        </div>
+                    </div>
+                </section>
+                <section id="experience">
+                    <div class="title">
+                        <h1 class="background-text">EXPERIENCE</h1>
+                        <h2 class="foreground-text">TECHNOLOGIES & TOOLS</h2>
+                    </div>
+                    <div class="experience-container">
+                        <div class="experience-content">
+                            <div class="technology-item">
+                                <i class="devicon-amazonwebservices-plain-wordmark"></i>
+                                <div class="tech-details">
+                                    <p>5+ years</p>
+                                </div>
+                            </div>
+                            <div class="technology-item">
+                                <i class="devicon-terraform-plain"></i>
+                                <div class="tech-details">
+                                    <p>4+ years</p>
+                                </div>
+                            </div>
+                            <div class="technology-item">
+                                <i class="devicon-docker-plain"></i>
+                                <div class="tech-details">
+                                    <p>4+ years</p>
+                                </div>
+                            </div>
+                            <div class="technology-item">
+                                <i class="devicon-kubernetes-plain"></i>
+                                <div class="tech-details">
+                                    <p>3+ years</p>
+                                </div>
+                            </div>
+                            <div class="technology-item">
+                                <i class="devicon-jenkins-plain"></i>
+                                <div class="tech-details">
+                                    <p>4+ years</p>
+                                </div>
+                            </div>
+                            <div class="technology-item">
+                                <i class="devicon-git-plain"></i>
+                                <div class="tech-details">
+                                    <p>10+ years</p>
+                                </div>
+                            </div>
+                            <div class="technology-item">
+                                <i class="devicon-linux-plain"></i>
+                                <div class="tech-details">
+                                    <p>10+ years</p>
+                                </div>
+                            </div>
+                            <div class="technology-item">
+                                <i class="devicon-python-plain"></i>
+                                <div class="tech-details">
+                                    <p>4+ years</p>
+                                </div>
+                            </div>
+                            <div class="technology-item">
+                                <i class="devicon-mysql-plain"></i>
+                                <i class="devicon-postgresql-plain"></i>
+                                <div class="tech-details">
+                                    <p>5+ years</p>
+                                </div>
+                            </div>
+                            <div class="technology-item">
+                                <i class="devicon-powershell-plain"></i>
+                                <i class="devicon-bash-plain"></i>
+                                <div class="tech-details">
+                                    <p>5+ years</p>
+                                </div>
+                            </div> 
+                            <div class="technology-item">
+                                <i class="devicon-ansible-plain"></i>
+                                <div class="tech-details">
+                                    <p>1+ year</p>
+                                </div>
+                            </div>
+                            <div class="technology-item">
+                                <i class="devicon-azuredevops-plain"></i>
+                                <div class="tech-details">
+                                    <p>1 year</p>
+                                </div>
+                            </div>
+                            <div class="technology-item">
+                                <img src="images/datadog.svg" alt="Datadog Icon" width="50" height="50">
+                                <div class="tech-details">
+                                    <p>2+ year</p>
+                                </div>
+                            </div>
+                            <div class="technology-item">
+                                <i class="devicon-grafana-plain"></i>
+                                <div class="tech-details">
+                                    <p>2+ year</p>
+                                </div>
+                            </div>
+                            <div class="technology-item">
+                                <i class="devicon-elasticsearch-plain"></i>
+                                <div class="tech-details">
+                                    <p>2+ years</p>
+                                </div>
+                            </div>
+                            <div class="technology-item">
+                                <i class="devicon-cloudflare-plain"></i>
+                                <div class="tech-details">
+                                    <p>2+ year</p>
+                                </div>
+                            </div>
+                            <div class="technology-item">
+                                <i class="devicon-gitlab-plain"></i>
+                                <div class="tech-details">
+                                    <p>4+ years</p>
+                                </div>
+                            </div>
+                            <div class="technology-item">
+                                <i class="devicon-pfsense-original"></i>
+                                <div class="tech-details">
+                                    <p>2+ years</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="and-more">
+                            <h2>AND MORE...</h2>
+                        </div>
+                    </div>
+                    <div class="title">
+                        <h1 class="background-text">EXPERIENCE</h1>
+                        <h2 class="foreground-text">CREDENTIALS & COURSES</h2>
+                    </div>
+                    <div class="certifications-container">
+                        <div class="certification-item">
+                            <img src="images/linkedin.svg" alt="LinkedIn Logo" class="icon">
+                            <div class="cert-details">
+                                <h3>AWS: Monitoring and Reporting</h3>
+                                <p>LinkedIn</p>
+                                <p class="issued">Issued Apr 2022</p>
+                                <a href="https://drive.google.com/file/d/1vM8UfllNmXK2Iw_g2huRxCwbLGwsDNE9/view?usp=sharing" target="_blank">View Credential</a>
+                            </div>
+                        </div>
+                        <div class="certification-item">
+                            <img src="images/pci.svg" width="100px" alt="PCI Logo" class="icon">
+                            <div class="cert-details">
+                                <h3>PCI Internal Security Assessor (ISA)</h3>
+                                <p>PCI Security Standards Council</p>
+                                <p class="issued">Issued Jun 2021 · Expired Jun 2022</p>
+                                <p>Credential ID 806-592</p>
+                                <a href="https://www.credly.com/badges/2b685570-0e8b-456e-ab39-e2e778154f47?source=linked_in_profile" target="_blank">View Credential</a>
+                            </div>
+                        </div>
+                        <div class="certification-item">
+                            <img src="images/igti.png" alt="IGTI Logo" class="icon">
+                            <div class="cert-details">
+                                <h3>Profissional DevOps</h3>
+                                <p>IGTI</p>
+                                <p class="issued">Issued May 2021</p>
+                                <a href="https://drive.google.com/file/d/157ZpBw9s0RpM0tQWklwP2P3cbuIKJ1qD/view?usp=sharing" target="_blank">View Credential</a>
+                            </div>
+                        </div>
+                        <div class="certification-item">
+                            <img src="images/fiap.jpg" alt="FIAP Logo" class="icon">
+                            <div class="cert-details">
+                                <h3>DevOps & Agile Culture</h3>
+                                <p>FIAP</p>
+                                <p class="issued">Issued Apr 2021</p>
+                                <p class="credId">Credential ID 820caca181e0581c33f28b2c89da8abf</p>
+                                <a href="https://drive.google.com/file/d/1rkAH1MgKB3IfpIhK8UTzsTw1XEh-2kBT/view?usp=sharing" target="_blank">View Credential</a>
+                            </div>
+                        </div>
+                        <div class="certification-item">
+                            <img src="images/ireb.png" alt="IREB Logo" class="icon">
+                            <div class="cert-details">
+                                <h3>Certified Professional in Requirements Engineering (CPRE-FL)</h3>
+                                <p>IREB</p>
+                                <p class="issued">Issued Sep 2016</p>
+                                <p class="credId">Credential ID 16-CPRE-FL-00069-BR</p>
+                                <a href="https://www.ireb.org/en/service/cpre-registry-list/1048" target="_blank">View Credential</a>
+                            </div>
+                        </div>
+                        <div class="certification-item">
+                            <img src="images/pci.svg" alt="PCI Logo" class="icon">
+                            <div class="cert-details">
+                                <h3>Payment Card Industry Professional (PCIP)</h3>
+                                <p>PCI Security Standards Council</p>
+                                <p class="issued">Issued Jun 2021 · Expired Jun 2024</p>
+                                <p class="credId">Credential ID 1006-490</p>
+                                <a href="https://www.credly.com/badges/51a8a501-f984-46a7-b285-6ef83c0764d6?source=linked_in_profile" target="_blank">View Credential</a>
+                            </div>
+                        </div>
+                        <div class="certification-item">
+                            <img src="images/fatec.png" alt="Fatec Logo" class="icon">
+                            <div class="cert-details">
+                                <h3>Technologist in Systems Analysis and Development</h3>
+                                <p>Fatec Franca</p>
+                                <p class="issued">2012 - 2015</p>
+                                <p class="credId">Grade: 9.2</p>
+                            </div>
+                        </div>
+                        <div class="certification-item">
+                            <img src="images/fiap.jpg" alt="FIAP Logo" class="icon">
+                            <div class="cert-details">
+                                <h3>MBA in Cyber Security - Forensics, Ethical Hacking & DevSecOps</h3>
+                                <p>FIAP</p>
+                                <p class="issued">Mar 2022 - Nov 2022</p>
+                                <a href="https://www.fiap.com.br/online/mba/mba-em-cyber-security-forensics-ethical-hacking-e-devsecops/" target="_blank">View Credential</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="projects">
+                    <div class="title">
+                        <h1 class="background-text">PROJECTS</h1>
+                        <h2 class="foreground-text">PROJECTS</h2>
+                    </div>
+                    <div class="projects-container">
+                        <div class="project-card">
+                            <h3><a href="https://lucaspiressimao.github.io/notefor.one/">notefor.one</a></h3>
+                            <p>This project is based on the one-time sharing of passwords. Drawing inspiration from the hushnote project, I created the container execution configuration and transformed the database to run in memory.</p>
+                        </div>
+                        <div class="project-card">
+                            <h3><a>AWS Analytics</a></h3>
+                            <p>SOON</p>
+                        </div>
+                    </div>
+                </section>
+                
+            </div>
+        </div>
+    </div>
+    <script src="script.js" defer></script>
 </body>
+
 </html>

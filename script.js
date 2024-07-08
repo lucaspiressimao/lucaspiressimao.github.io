@@ -1,31 +1,41 @@
-function includeHTML() {
-    var elements = document.querySelectorAll('[w3-include-html]');
-    elements.forEach(function(elmnt) {
-        var file = elmnt.getAttribute("w3-include-html");
-        if (file) {
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
-                if (this.readyState == 4) {
-                    if (this.status == 200) {
-                        elmnt.innerHTML = this.responseText;
-                        elmnt.removeAttribute("w3-include-html");
-                        includeHTML();
-                    }
-                    if (this.status == 404) {
-                        elmnt.innerHTML = "Page not found.";
-                    }
-                }
-            }
-            xhr.open("GET", file, true);
-            xhr.send();
-        }
-    });
-}
+document.addEventListener("DOMContentLoaded", () => {
+    const menuIcon = document.getElementById("menu-icon");
+    const sidebar = document.querySelector(".sidebar");
 
-function switchLanguage(language) {
-    if (language === 'en') {
-        window.location.href = window.location.href.replace('.html', '-en.html');
-    } else if (language === 'pt') {
-        window.location.href = window.location.href.replace('-en.html', '.html');
-    }
-}
+    menuIcon.addEventListener("click", () => {
+        sidebar.classList.toggle("open");
+    });
+
+    const menuItems = document.querySelectorAll('.menu-item');
+
+    menuItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault(); 
+            menuItems.forEach(menu => menu.classList.remove('active'));
+            this.classList.add('active');
+
+            const targetId = this.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+            targetSection.scrollIntoView({ behavior: 'smooth' });
+            sidebar.classList.toggle("open");
+        });
+    });
+
+    const sections = document.querySelectorAll('section');
+    const options = {
+        threshold: 0.5
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                menuItems.forEach(menu => menu.classList.remove('active'));
+                document.querySelector(`a[href="#${entry.target.id}"]`).classList.add('active');
+            }
+        });
+    }, options);
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
