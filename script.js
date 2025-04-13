@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const menuItems = document.querySelectorAll('.menu-item');
 
     menuItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.preventDefault(); 
+        item.addEventListener('click', function (e) {
+            e.preventDefault();
             menuItems.forEach(menu => menu.classList.remove('active'));
             this.classList.add('active');
 
@@ -38,4 +38,16 @@ document.addEventListener("DOMContentLoaded", () => {
     sections.forEach(section => {
         observer.observe(section);
     });
+
+    const currentYear = new Date().getFullYear();
+    const elements = document.querySelectorAll('.dynamic-years');
+
+    elements.forEach(el => {
+        const startYear = parseInt(el.getAttribute('data-start'));
+        if (!isNaN(startYear)) {
+            const diff = currentYear - startYear;
+            el.textContent = `${diff}+ year${diff > 1 ? 's' : ''}`;
+        }
+    });
+
 });
