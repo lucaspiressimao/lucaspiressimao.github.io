@@ -24,12 +24,12 @@ body {
     align-items: center;
     /* padding-top: 20px; */
     padding-bottom: 30px;
-    transition: transform 0.3s ease; 
+    transition: transform 0.3s ease;
     z-index: 999;
 }
 
 .menu-icon {
-    display: none; 
+    display: none;
     position: fixed;
     top: 20px;
     left: 20px;
@@ -161,31 +161,31 @@ section {
 .title {
     position: relative;
     text-align: center;
-    padding-top: 80px; 
-    padding-bottom: 80px; 
+    padding-top: 80px;
+    padding-bottom: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100px; 
+    height: 100px;
     width: 100%;
 }
 
 .about-line {
     width: 70%;
     height: 2px;
-    background-color: #FF6347; 
-    margin: 20px auto; 
+    background-color: #FF6347;
+    margin: 20px auto;
 }
 
 .about-content {
     flex: 2;
-    color: rgba(255, 255, 255, 0.5); 
-    
+    color: rgba(255, 255, 255, 0.5);
+
 }
 
 .about-content p {
     text-align: justify;
-    
+
 }
 
 .background-text {
@@ -193,7 +193,7 @@ section {
     color: rgba(255, 255, 255, 0.03);
     position: relative;
     /* padding-top: 50px; */
-    white-space: nowrap; 
+    white-space: nowrap;
     z-index: 1;
 }
 
@@ -205,7 +205,7 @@ section {
     z-index: 2;
     border-radius: 5px;
     transform: translate(0%, 0%);
-    white-space: nowrap; 
+    white-space: nowrap;
 }
 
 .about-container {
@@ -247,15 +247,15 @@ section {
 .quote {
     margin-top: 20px;
     font-size: 1.2em;
-    background-color: #f0f0f0; 
-    color: #333; 
+    background-color: #f0f0f0;
+    color: #333;
     padding: 10px;
-    border-left: 5px solid #007BFF; 
+    border-left: 5px solid #007BFF;
     font-style: italic;
 }
 
 .highlight {
-    color: #007BFF; 
+    color: #007BFF;
 }
 
 #experience {
@@ -288,7 +288,7 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100px; 
+    height: 100px;
     width: 100%;
 }
 
@@ -301,11 +301,11 @@ section {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 180px; 
-    height: 180px; 
+    width: 180px;
+    height: 180px;
     text-align: center;
     transition: transform 0.3s, background-color 0.3s;
-    box-sizing: border-box; 
+    box-sizing: border-box;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
 
@@ -315,10 +315,11 @@ section {
 }
 
 .technology-item img {
-    width: 60px; 
-    height: 60px; 
+    width: 60px;
+    height: 60px;
     margin-bottom: 10px;
 }
+
 .tech-details h3 {
     margin: 5px 0;
     font-size: 1.2em;
@@ -340,9 +341,9 @@ section {
 }
 
 .technology-item i {
-    font-size: 60px; 
+    font-size: 60px;
     margin-bottom: 10px;
-    color: #fff; 
+    color: #fff;
 }
 
 .certifications-container {
@@ -369,11 +370,11 @@ section {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 600px;  
-    height: 200px; 
+    width: 600px;
+    height: 200px;
     text-align: center;
     transition: transform 0.3s, background-color 0.3s;
-    border-radius: 10px; 
+    border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
 
@@ -455,6 +456,14 @@ section {
     font-size: 1.5em;
 }
 
+.project-card h3 a {
+    color: #ff6347;
+}
+
+.project-card:hover h3 a {
+    color: #5e5e5e;
+}
+
 .project-card p {
     margin: 5px 0;
     font-size: 1em;
@@ -476,21 +485,25 @@ section {
 
 @media (max-width: 768px) {
     .sidebar {
-        transform: translateX(-100%); /* Esconde a barra lateral fora da tela */
+        transform: translateX(-100%);
+        /* Esconde a barra lateral fora da tela */
     }
 
     .sidebar.open {
-        transform: translateX(0); /* Mostra a barra lateral */
+        transform: translateX(0);
+        /* Mostra a barra lateral */
         position: fixed;
         width: 100%;
         height: 100%;
         top: 0;
         left: 0;
-        background-color: rgba(18, 20, 23, 0.95); /* Fundo ligeiramente transparente */
+        background-color: rgba(18, 20, 23, 0.95);
+        /* Fundo ligeiramente transparente */
     }
 
     .menu-icon {
-        display: block; /* Mostra o ícone de menu em dispositivos móveis */
+        display: block;
+        /* Mostra o ícone de menu em dispositivos móveis */
     }
 
     .about-info {
@@ -502,13 +515,14 @@ section {
     }
 
     .content {
-        padding: 0; /* Remove o padding à esquerda quando a barra lateral está escondida */
+        padding: 0;
+        /* Remove o padding à esquerda quando a barra lateral está escondida */
     }
 
     .background-text {
         font-size: 4em;
     }
-    
+
     .foreground-text {
         font-size: 1.5em;
     }
