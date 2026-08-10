@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lucas Pires Simão — Senior DevOps / Platform Engineer — real-time infrastructure</title>
+<meta name="description" content="Senior DevOps and Platform Engineer for globally dependable real-time cloud infrastructure.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://lucas.piressimao.com.br/ably/">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Lucas Pires Simão — Senior DevOps / Platform Engineer — real-time infrastructure">
+<meta property="og:description" content="Senior DevOps and Platform Engineer for globally dependable real-time cloud infrastructure.">
+<meta property="og:url" content="https://lucas.piressimao.com.br/ably/">
+<meta property="og:image" content="https://lucas.piressimao.com.br/images/profile.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<title>Lucas Pires Simão — Senior DevOps / Platform Engineer</title>
+<style>
+  :root {
+    --paper: #f5f6f4;
+    --paper-raised: #ffffff;
+    --ink: #12161a;
+    --ink-soft: #3d4650;
+    --muted: #6a7570;
+    --rule: #dcdfda;
+    --accent: #0e7360;
+    --accent-soft: #e4efea;
+    --shadow: 0 1px 2px rgba(18, 22, 26, .06);
+
+    --sans: ui-sans-serif, -apple-system, "SF Pro Text", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    --serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #0f1214;
+      --paper-raised: #161a1d;
+      --ink: #e9ece8;
+      --ink-soft: #b3bcb6;
+      --muted: #7d8a87;
+      --rule: #272d30;
+      --accent: #3fb99b;
+      --accent-soft: #16302a;
+      --shadow: none;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper: #0f1214;
+    --paper-raised: #161a1d;
+    --ink: #e9ece8;
+    --ink-soft: #b3bcb6;
+    --muted: #7d8a87;
+    --rule: #272d30;
+    --accent: #3fb99b;
+    --accent-soft: #16302a;
+    --shadow: none;
+  }
+
+  :root[data-theme="light"] {
+    --paper: #f5f6f4;
+    --paper-raised: #ffffff;
+    --ink: #12161a;
+    --ink-soft: #3d4650;
+    --muted: #6a7570;
+    --rule: #dcdfda;
+    --accent: #0e7360;
+    --accent-soft: #e4efea;
+    --shadow: 0 1px 2px rgba(18, 22, 26, .06);
+  }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .sheet {
+    max-width: 62rem;
+    margin: 0 auto;
+    padding: clamp(2rem, 6vw, 5rem) clamp(1.25rem, 5vw, 3.5rem) 4rem;
+  }
+
+  /* ---- rails: mono label on the left, reading column on the right ---- */
+  .block {
+    display: grid;
+    grid-template-columns: 11rem minmax(0, 40rem);
+    gap: 0 3rem;
+    padding: 2.5rem 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .rail {
+    font-family: var(--mono);
+    font-size: .688rem;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: .35rem;
+  }
+
+  @media (max-width: 46rem) {
+    .block { grid-template-columns: minmax(0, 1fr); gap: .9rem; }
+    .rail { padding-top: 0; }
+  }
+
+  /* ---- masthead ---- */
+  .masthead { padding-bottom: 2.25rem; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: .688rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 1.5rem;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 5.5vw, 3rem);
+    line-height: 1.08;
+    letter-spacing: -.022em;
+    font-weight: 640;
+    margin: 0 0 .6rem;
+    text-wrap: balance;
+  }
+
+  .role {
+    font-size: 1.0625rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    margin: 0 0 1.5rem;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem .75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--mono);
+    font-size: .75rem;
+    color: var(--muted);
+  }
+
+  .meta li { display: flex; align-items: center; gap: .5rem; }
+  .meta li + li::before { content: "·"; color: var(--rule); }
+
+  .meta a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px solid var(--rule); }
+  .meta a:hover, .meta a:focus-visible { color: var(--accent); border-color: var(--accent); }
+
+  .status-dot {
+    width: .45rem; height: .45rem; border-radius: 50%;
+    background: var(--accent); flex: none;
+  }
+
+  /* ---- thesis ---- */
+  .thesis {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(1.25rem, 2.6vw, 1.5rem);
+    line-height: 1.45;
+    color: var(--ink);
+    max-width: 34rem;
+    margin: 0;
+    padding: 2.25rem 0 .5rem;
+    border-top: 2px solid var(--ink);
+    text-wrap: pretty;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    line-height: 1.25;
+    letter-spacing: -.012em;
+    font-weight: 620;
+    margin: 0 0 1.1rem;
+  }
+
+  h3 {
+    font-size: .9375rem;
+    font-weight: 620;
+    margin: 0 0 .3rem;
+    letter-spacing: -.005em;
+  }
+
+  p { margin: 0 0 1rem; color: var(--ink-soft); max-width: 40rem; }
+  p:last-child { margin-bottom: 0; }
+  strong { color: var(--ink); font-weight: 600; }
+
+  .points { display: grid; gap: 1.6rem; }
+  .points p { margin: 0; }
+
+  /* ---- capability grid ---- */
+  .caps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .cap { background: var(--paper-raised); padding: 1.1rem 1.2rem; }
+  .cap h3 { margin-bottom: .35rem; }
+  .cap p { font-size: .875rem; margin: 0; color: var(--muted); }
+
+  /* ---- timeline ---- */
+  .roles { display: grid; gap: 1.9rem; }
+
+  .role-entry { display: grid; gap: .35rem; }
+
+  .role-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: .3rem .75rem;
+  }
+
+  .role-when {
+    font-family: var(--mono);
+    font-size: .75rem;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .role-where { font-size: .9375rem; font-weight: 620; }
+  .role-title { font-size: .875rem; color: var(--muted); }
+  .role-entry p { font-size: .9375rem; margin: 0; }
+
+  /* ---- credentials ---- */
+  .creds { display: grid; gap: 1.1rem; }
+  .cred-line { display: grid; gap: .25rem; }
+  .cred-line dt {
+    font-family: var(--mono);
+    font-size: .688rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .cred-line dd { margin: 0; font-size: .9375rem; color: var(--ink-soft); }
+
+  /* ---- close ---- */
+  .close-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+    margin-top: 1.5rem;
+  }
+
+  .btn {
+    font-family: var(--mono);
+    font-size: .75rem;
+    letter-spacing: .06em;
+    text-decoration: none;
+    padding: .65rem 1.1rem;
+    border-radius: 2px;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    background: transparent;
+    transition: background-color .15s ease, color .15s ease;
+  }
+
+  .btn-solid { background: var(--accent); color: var(--paper); }
+  .btn:hover, .btn:focus-visible { background: var(--accent-soft); color: var(--accent); }
+  .btn-solid:hover, .btn-solid:focus-visible { background: var(--accent-soft); color: var(--accent); }
+
+  a:focus-visible, .btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+
+  /* ---- print / PDF ---- */
+  @media print {
+    :root {
+      --paper: #ffffff; --paper-raised: #ffffff; --ink: #12161a;
+      --ink-soft: #3d4650; --muted: #6a7570; --rule: #d4d8d3;
+      --accent: #0b5f50; --accent-soft: #eaf2ef; --shadow: none;
+    }
+    @page { size: A4 portrait; margin: 15mm 16mm; }
+    body { font-size: 10pt; background: #fff; }
+    .sheet { padding: 0; max-width: none; }
+    .block { padding: 5mm 0; break-inside: avoid; grid-template-columns: 30mm minmax(0, 1fr); gap: 0 8mm; }
+    h1 { font-size: 22pt; }
+    .thesis { font-size: 12.5pt; padding-top: 5mm; }
+    .caps { break-inside: avoid; }
+    .role-entry { break-inside: avoid; }
+    .btn { border-color: #b9c2bd; color: #12161a; }
+  }
+</style>
+<main class="sheet">
+  <header class="masthead">
+    <p class="eyebrow">For Ably · Remote · UK hours · August 2026</p>
+    <h1>Lucas Pires Simão</h1>
+    <p class="role">Senior DevOps / Platform Engineer — real-time infrastructure</p>
+    <ul class="meta">
+      <li><span class="status-dot" aria-hidden="true"></span> Remote from Brazil, working UK hours</li>
+      <li><a href="mailto:lucaspiressimao@gmail.com">lucaspiressimao@gmail.com</a></li>
+      <li><a href="https://www.lucas.piressimao.com.br/">lucas.piressimao.com.br</a></li>
+      <li><a href="https://www.linkedin.com/in/lucaspiressimao/">linkedin.com/in/lucaspiressimao</a></li>
+      <li><a href="https://github.com/lucaspiressimao">github.com/lucaspiressimao</a></li>
+    </ul>
+  </header>
+  <p class="thesis">Real-time infrastructure is a reliability contract: low latency, correct delivery and graceful behaviour under load. I build the operational foundations that make that contract believable in production.</p>
+  <section class="block"><p class="rail">Why Ably</p><div>
+    <h2>I work on the platform concerns that matter when every second and dependency counts</h2>
+    <div class="points"><div><h3>Production systems under time pressure</h3><p>Digital ordering and payments at QikServe have a hard real-world clock: service continues while the platform is under peak demand. I build for clear signals, controlled change and fast recovery.</p></div>
+<div><h3>Observability must guide action</h3><p>Datadog, CloudWatch, Grafana and ELK are valuable only when telemetry connects a symptom to an owner and a response. I design monitoring and alerting around that practical outcome.</p></div>
+<div><h3>Elastic infrastructure with repeatable delivery</h3><p>AWS, EKS, Terraform, Docker and CI/CD are the tools I use to create reproducible environments and safe changes. They support both scale and the ability to understand what changed.</p></div></div>
+  </div></section>
+  <section class="block"><p class="rail">What I do</p><div>
+    <h2>Platform engineering, end to end</h2><div class="caps"><div class="cap"><h3>Run it</h3><p>AWS (EKS, ECS, RDS, Lambda), Kubernetes, autoscaling and incident response.</p></div>
+<div class="cap"><h3>See it</h3><p>Datadog, CloudWatch, Grafana and ELK. Alerting that fires before the customer calls.</p></div>
+<div class="cap"><h3>Rebuild it on demand</h3><p>Terraform, Ansible, Docker and multi-account AWS. Environments that come back identical.</p></div>
+<div class="cap"><h3>Ship it</h3><p>Jenkins, Azure DevOps, GitLab CI and AWS CodePipeline. Delivery paths teams actually release on.</p></div>
+<div class="cap"><h3>Secure it</h3><p>PCI DSS and PCI PIN, WAF, Vault, IAM, VPN, Route 53 and Cloudflare.</p></div>
+<div class="cap"><h3>Pay less for it</h3><p>FinOps: at Hyperlocal I rebuilt company environments around cost, performance and a new architecture.</p></div></div>
+  </div></section>
+  <section class="block"><p class="rail">Track record</p><div>
+    <h2>Four builds, all production, with hospitality and payments at the centre</h2>
+      <div class="roles">
+        <article class="role-entry">
+          <div class="role-head"><span class="role-when">Dec 2023 — now</span><span class="role-where">QikServe (Access Group)</span><span class="role-title">Senior DevOps Engineer</span></div>
+          <p>Digital ordering and hospitality payments. AWS architecture, Terraform automation, Jenkins and Azure DevOps pipelines, Datadog monitoring, PCI accountability and AI-assisted integration testing.</p>
+        </article>
+        <article class="role-entry">
+          <div class="role-head"><span class="role-when">Jan — Dec 2023</span><span class="role-where">Hyperlocal</span><span class="role-title">Senior DevOps Engineer</span></div>
+          <p>Payment methods, order hubs and health platforms. Rebuilt the company’s deployment environments around FinOps, performance and a new infrastructure architecture.</p>
+        </article>
+        <article class="role-entry">
+          <div class="role-head"><span class="role-when">Nov 2021 — Jan 2023</span><span class="role-where">Worc</span><span class="role-title">Senior DevOps Engineer</span></div>
+          <p>Hiring platform for bars and restaurants. Built the AWS account from the ground up: ECS, Route 53 and Cloudflare routing, RDS, VPN, autoscaling and alerting.</p>
+        </article>
+        <article class="role-entry">
+          <div class="role-head"><span class="role-when">Jul 2020 — Dec 2021</span><span class="role-where">Quero 2 Pay</span><span class="role-title">DevOps Engineer</span></div>
+          <p>Nationwide payment technology. Built automated deployment architecture, led PCI DSS certification, started PCI PIN and migrated services from GCP to AWS.</p>
+        </article>
+      </div>
+  </div></section>
+  <section class="block"><p class="rail">Credentials</p><div><dl class="creds">
+    <div class="cred-line"><dt>Certifications</dt><dd>PCI Internal Security Assessor (ISA) · PCIP · Professional DevOps (IGTI) · DevOps &amp; Agile Culture (FIAP) · AWS Monitoring and Reporting · Scrum Fundamentals · CPRE-FL (IREB)</dd></div>
+    <div class="cred-line"><dt>Education</dt><dd>MBA in Cyber Security, Forensics, Ethical Hacking and DevSecOps (FIAP) · BSc Systems Analysis and Development (FATEC)</dd></div>
+    <div class="cred-line"><dt>Languages</dt><dd>Portuguese (native) · English (advanced) · Spanish (intermediate)</dd></div>
+    <div class="cred-line"><dt>Side projects</dt><dd>Audio transcription platform (FastAPI, Docker, PostgreSQL) · secure one-time sharing tool · AI-assisted infrastructure documentation</dd></div>
+  </dl></div></section>
+  <section class="block"><p class="rail">Next step</p><div>
+    <h2>Twenty minutes, and I will have read your stack first</h2>
+    <p>I am not applying only to a posted vacancy — I am asking whether Ably has, or is about to have, a platform and reliability gap worth a conversation. If the timing is wrong, keeping my details for when it is right works just as well.</p>
+    <div class="close-actions"><a class="btn btn-solid" href="mailto:lucaspiressimao@gmail.com">Email me</a><a class="btn" href="https://www.linkedin.com/in/lucaspiressimao/">LinkedIn</a><a class="btn" href="https://www.lucas.piressimao.com.br/">Full CV</a></div>
+  </div></section>
+</main>
+
+</body>
+</html>
