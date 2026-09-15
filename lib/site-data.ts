@@ -38,6 +38,18 @@ export const principles = [
   },
 ];
 
+export const openSourceProjects = [
+  {
+    name: "HARM",
+    fullName: "Home Assistant Remote Media",
+    description:
+      "An open-source, local-first Android app that turns older tablets into focused camera and media displays controlled by Home Assistant automations.",
+    tags: ["Home Assistant", "Android", "RTSP", "Local-first"],
+    url: "https://harm-app.github.io/",
+    icon: "/images/harm-icon.png",
+  },
+];
+
 export const experience = [
   {
     company: "QikServe",

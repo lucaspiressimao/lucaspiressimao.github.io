@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/section-heading";
-import { contact, experience, focusAreas, intro, learning, principles, quickFacts, selectedWork, writingTopics } from "@/lib/site-data";
+import { contact, experience, focusAreas, intro, learning, openSourceProjects, principles, quickFacts, selectedWork, writingTopics } from "@/lib/site-data";
 
 const navItems = [
   { label: "About", href: "#about" },
@@ -131,6 +131,50 @@ export function PortfolioPage() {
             </motion.article>
           ))}
         </div>
+
+        <motion.div {...fadeUp} className="mt-20 border-t border-white/10 pt-12">
+          <p className="section-label">Open source</p>
+          <div className="mt-5 grid gap-5 md:grid-cols-[0.72fr_0.28fr] md:items-end">
+            <h2 className="text-3xl font-semibold tracking-[-0.04em] text-slate-50 md:text-4xl">
+              Projects built in the open
+            </h2>
+            <p className="text-sm leading-7 text-slate-300/70 md:text-right">
+              Free to use, inspect, adapt and improve.
+            </p>
+          </div>
+
+          <div className="mt-8 grid gap-5">
+            {openSourceProjects.map((project) => (
+              <article key={project.name} className="panel grid gap-6 p-6 md:grid-cols-[auto_1fr_auto] md:items-center md:p-7">
+                <Image
+                  src={project.icon}
+                  alt={`${project.name} icon`}
+                  width={72}
+                  height={72}
+                  className="h-16 w-16 rounded-2xl object-cover md:h-[72px] md:w-[72px]"
+                />
+                <div>
+                  <p className="font-mono text-xs uppercase tracking-[0.3em] text-sky-300/72">{project.fullName}</p>
+                  <h3 className="mt-2 text-2xl font-medium tracking-[-0.04em] text-slate-50">{project.name}</h3>
+                  <p className="mt-3 max-w-3xl text-base leading-7 text-slate-300/74">{project.description}</p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {project.tags.map((tag) => (
+                      <span key={tag} className="metric-chip">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center rounded-full border border-sky-300/20 bg-sky-300/[0.07] px-5 py-3 text-sm font-medium text-sky-200 transition hover:border-sky-300/40 hover:bg-sky-300/[0.12]"
+                >
+                  Explore HARM ↗
+                </a>
+              </article>
+            ))}
+          </div>
+        </motion.div>
       </section>
 
       <section id="experience" className="section-shell max-w-6xl py-14">
