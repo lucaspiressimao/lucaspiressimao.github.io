@@ -48,6 +48,15 @@ export const openSourceProjects = [
     url: "https://harm-app.github.io/",
     icon: "/images/harm-icon.png",
   },
+  {
+    name: "notefor.one",
+    fullName: "Encrypted one-time note sharing",
+    description:
+      "An open-source, self-hostable application for sharing end-to-end encrypted notes that disappear after one explicit reveal.",
+    tags: ["AES-256-GCM", "Node.js", "Privacy", "Self-hosted"],
+    url: "https://notefor-one.github.io/",
+    icon: "/images/notefor-one.svg",
+  },
 ];
 
 export const experience = [
@@ -155,7 +164,7 @@ export const selectedWork = [
     text:
       "A small but useful example of applying infrastructure and security thinking to a focused product problem, with attention to minimal operational surface area and safe default behavior.",
     stack: ["Docker", "Security", "Deployment", "Cloud hosting"],
-    link: "https://lucaspiressimao.github.io/notefor.one/",
+    link: "https://notefor-one.github.io/",
   },
 ];
 

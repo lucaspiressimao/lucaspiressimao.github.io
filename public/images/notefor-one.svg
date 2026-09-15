@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title id="title">notefor.one logo</title>
+  <defs><linearGradient id="g" x1="18" y1="14" x2="108" y2="116" gradientUnits="userSpaceOnUse"><stop stop-color="#70f0c1"/><stop offset="1" stop-color="#48a9ff"/></linearGradient></defs>
+  <rect width="128" height="128" rx="28" fill="#09151f"/>
+  <path d="M34 25h45l18 18v60H34z" fill="none" stroke="url(#g)" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M79 25v20h18M49 62h33M49 78h25" fill="none" stroke="url(#g)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M90 88a13 13 0 1 1-26 0 13 13 0 0 1 26 0Z" fill="#09151f" stroke="#70f0c1" stroke-width="6"/>
+  <path d="M77 86v7" stroke="#70f0c1" stroke-width="5" stroke-linecap="round"/>
+</svg>
