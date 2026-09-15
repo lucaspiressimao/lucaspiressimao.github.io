@@ -7,6 +7,7 @@ import { contact, experience, focusAreas, intro, learning, openSourceProjects, p
 
 const navItems = [
   { label: "About", href: "#about" },
+  { label: "Open source", href: "#open-source" },
   { label: "Experience", href: "#experience" },
   { label: "Work", href: "#work" },
   { label: "Writing", href: "#writing" },
@@ -132,7 +133,7 @@ export function PortfolioPage() {
           ))}
         </div>
 
-        <motion.div {...fadeUp} className="mt-20 border-t border-white/10 pt-12">
+        <motion.div id="open-source" {...fadeUp} className="scroll-mt-24 mt-20 border-t border-white/10 pt-12">
           <p className="section-label">Open source</p>
           <div className="mt-5 grid gap-5 md:grid-cols-[0.72fr_0.28fr] md:items-end">
             <h2 className="text-3xl font-semibold tracking-[-0.04em] text-slate-50 md:text-4xl">
