@@ -170,7 +170,7 @@ export function PortfolioPage() {
                   rel="noreferrer"
                   className="inline-flex items-center justify-center rounded-full border border-sky-300/20 bg-sky-300/[0.07] px-5 py-3 text-sm font-medium text-sky-200 transition hover:border-sky-300/40 hover:bg-sky-300/[0.12]"
                 >
-                  Explore HARM ↗
+                  Explore {project.name} ↗
                 </a>
               </article>
             ))}
@@ -183,7 +183,7 @@ export function PortfolioPage() {
           <SectionHeading
             eyebrow="Experience"
             title="Selected experience"
-            description="These roles are presented the way I believe senior engineering work should be presented: through context, impact and engineering posture, not keyword-heavy task descriptions."
+            description="Cloud platforms, application delivery and operational outcomes across hospitality, payments and digital services."
           />
         </motion.div>
 
@@ -193,7 +193,7 @@ export function PortfolioPage() {
               key={item.company}
               {...fadeUp}
               transition={{ duration: 0.55, ease: "easeOut", delay: index * 0.05 }}
-              className="grid gap-6 border-t border-white/10 pt-8 md:grid-cols-[0.28fr_0.72fr]"
+              className="grid gap-8 rounded-3xl border border-white/10 bg-white/[0.025] p-6 md:grid-cols-[0.28fr_0.72fr] md:gap-12 md:p-9"
             >
               <div>
                 <p className="font-mono text-xs uppercase tracking-[0.3em] text-sky-300/72">{item.period}</p>
@@ -203,12 +203,21 @@ export function PortfolioPage() {
 
               <div>
                 <p className="text-lg leading-8 text-slate-200/84">{item.overview}</p>
-                <div className="mt-6 space-y-4">
+                <ul className="mt-6 space-y-4">
                   {item.points.map((point) => (
-                    <p key={point} className="text-base leading-8 text-slate-300/74">
+                    <li key={point} className="border-l border-slate-600 pl-4 text-base leading-8 text-slate-300">
                       {point}
-                    </p>
+                    </li>
                   ))}
+                </ul>
+                <div className="mt-7 flex flex-wrap gap-2" aria-label="Technologies">
+                  {item.stack.map((technology) => (
+                    <span key={technology} className="rounded-lg bg-slate-800/80 px-3 py-1.5 text-xs text-slate-300">{technology}</span>
+                  ))}
+                </div>
+                <div className="mt-7 rounded-xl border-l-2 border-sky-300 bg-sky-300/[0.06] p-5">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-sky-300">Key contribution</p>
+                  <p className="mt-2 text-base leading-7 text-slate-200">{item.achievement}</p>
                 </div>
               </div>
             </motion.article>
@@ -222,7 +231,7 @@ export function PortfolioPage() {
             <SectionHeading
               eyebrow="Focus"
               title="Areas I work across"
-              description="This is intentionally grouped as a personal practice area rather than a skill chart. The point is to show range without making the site read like a software catalog."
+              description="AWS and Microsoft Azure infrastructure, Kubernetes operations, automated delivery and production observability."
             />
           </motion.div>
 

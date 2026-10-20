@@ -3,15 +3,17 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://lucas.piressimao.com.br"),
-  title: "Lucas Pires Simão | DevOps Engineer, Cloud Architect & Infrastructure Specialist",
+  title: "Lucas Pires Simão | Senior DevOps Engineer & Cloud Architect",
   description:
-    "Senior DevOps Engineer and Cloud Architect building resilient cloud platforms, secure delivery systems, and high-availability infrastructure for critical environments.",
+    "Senior DevOps Engineer and Cloud Architect working across AWS, Microsoft Azure, EKS, AKS, Terraform and CI/CD for reliable cloud platforms.",
   keywords: [
     "Lucas Pires Simão",
     "DevOps Engineer",
     "Cloud Architect",
     "Infrastructure Specialist",
     "AWS",
+    "Microsoft Azure",
+    "Azure Kubernetes Service",
     "Kubernetes",
     "Terraform",
     "Platform Engineering",
@@ -19,7 +21,7 @@ export const metadata: Metadata = {
     "Observability",
   ],
   openGraph: {
-    title: "Lucas Pires Simão | DevOps Engineer, Cloud Architect & Infrastructure Specialist",
+    title: "Lucas Pires Simão | Senior DevOps Engineer & Cloud Architect",
     description:
       "Infrastructure, automation, security, observability, and platform engineering for high-scale and business-critical systems.",
     url: "https://lucas.piressimao.com.br",
@@ -37,7 +39,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Lucas Pires Simão | DevOps Engineer, Cloud Architect & Infrastructure Specialist",
+    title: "Lucas Pires Simão | Senior DevOps Engineer & Cloud Architect",
     description:
       "Building scalable cloud platforms with reliability, automation, security, and operational depth.",
     images: ["/images/profile.jpg"],

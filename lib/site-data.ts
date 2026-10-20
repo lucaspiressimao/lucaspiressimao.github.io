@@ -1,16 +1,16 @@
 export const intro = {
   name: "Lucas Pires Simão",
-  title: "DevOps Engineer, Cloud Architect and Infrastructure Specialist",
+  title: "Senior DevOps Engineer & Cloud Architect",
   location: "Based in Brazil",
   summary:
-    "I design and operate cloud infrastructure for environments where resilience, delivery quality, observability and security are not optional. My work sits at the intersection of DevOps, platform engineering, cloud architecture and practical business execution.",
+    "I build and operate AWS and Microsoft Azure platforms, with a focus on reliable application delivery, infrastructure automation and production visibility.",
   detail:
-    "Over the last decade, I have worked across high-availability systems, PCI-sensitive operations, Kubernetes and AWS platforms, CI/CD modernization, runtime hardening, incident response and internal automation. I care about systems that stay understandable under pressure.",
+    "My work combines Kubernetes on EKS and AKS, Terraform, CI/CD and observability. Across hospitality, payments and digital services, I have rebuilt cloud environments, improved delivery workflows and supported PCI compliance.",
 };
 
 export const quickFacts = [
   "10+ years in infrastructure and cloud operations",
-  "Hands-on across AWS, Kubernetes, Terraform and delivery systems",
+  "AWS and Microsoft Azure · Kubernetes on EKS and AKS",
   "Experience in critical environments, compliance-heavy contexts and global infrastructure",
   "Strong builder profile across internal tooling, AI automation and technical platforms",
 ];
@@ -61,58 +61,91 @@ export const openSourceProjects = [
 
 export const experience = [
   {
-    company: "QikServe",
-    role: "Senior DevOps / Platform Engineering",
-    period: "Recent",
-    overview:
-      "Platform-oriented infrastructure work with emphasis on reliability, cloud operations and delivery maturity in production-critical systems.",
-    points: [
-      "Improved engineering leverage through stronger platform patterns and more predictable infrastructure behavior.",
-      "Worked close to runtime reliability, operational clarity and sustainable delivery velocity.",
-      "Contributed with a systems mindset rather than treating operational issues as one-off tasks.",
+    "company": "QikServe",
+    "role": "Senior DevOps Engineer",
+    "period": "Dec 2023 – Present",
+    "overview": "Digital ordering and payment solutions for the hospitality industry.",
+    "points": [
+      "Automate AWS and Microsoft Azure infrastructure with Terraform, Shell scripting and PowerShell.",
+      "Deploy applications on EKS and AKS, and maintain AWS architectures using ECS, IAM, Auto Scaling, Lambda, S3, RDS and Control Tower.",
+      "Build CI/CD pipelines with Jenkins and Azure DevOps; monitor applications and infrastructure with Datadog and CloudWatch."
     ],
+    "stack": [
+      "AWS",
+      "Microsoft Azure",
+      "EKS / AKS",
+      "Terraform",
+      "Azure DevOps",
+      "Datadog"
+    ],
+    "achievement": "Introduced AI-assisted integration testing and took responsibility for PCI certification activities."
   },
   {
-    company: "Hyperlocal",
-    role: "Cloud / DevOps Engineer",
-    period: "Growth-stage operations",
-    overview:
-      "Cloud and automation work focused on scalable delivery, containerized workloads and production visibility.",
-    points: [
-      "Balanced speed of change with resilience, maintainability and cost awareness.",
-      "Strengthened infrastructure workflows around provisioning, deployment and operational feedback loops.",
-      "Helped shape environments that could evolve without accumulating hidden operational drag.",
+    "company": "Hyperlocal",
+    "role": "Senior DevOps Engineer",
+    "period": "Jan 2023 – Dec 2023",
+    "overview": "Integrated platforms for payments, order management, and health and wellness services.",
+    "points": [
+      "Automated AWS and Microsoft Azure infrastructure with Terraform, Ansible, Python and Shell scripting.",
+      "Managed containerized applications on ECS, EKS and AKS to support scalability and availability.",
+      "Built CI/CD pipelines with Azure DevOps, GitHub and Jenkins, with monitoring through Grafana, CloudWatch and ELK."
     ],
+    "stack": [
+      "AWS",
+      "Microsoft Azure",
+      "EKS / AKS",
+      "Terraform",
+      "Ansible",
+      "Azure DevOps"
+    ],
+    "achievement": "Rebuilt company deployment environments with a focus on FinOps, performance and infrastructure architecture."
   },
   {
-    company: "Worc",
-    role: "Infrastructure / DevOps Engineer",
-    period: "Modernization",
-    overview:
-      "Infrastructure standardization and DevOps enablement with a strong focus on repeatability and lower team friction.",
-    points: [
-      "Turned fragmented infrastructure work into more reproducible systems.",
-      "Supported teams through better tooling, automation and operational ownership.",
-      "Applied DevOps culture in a practical way, through engineering systems rather than slogans.",
+    "company": "Worc",
+    "role": "Senior DevOps Engineer",
+    "period": "Nov 2021 – Jan 2023",
+    "overview": "A social impact company connecting people with jobs in bars and restaurants.",
+    "points": [
+      "Built CI/CD pipelines with GitLab and AWS CodePipeline, and managed ECS clusters and Docker images.",
+      "Implemented DNS routing with Cloudflare and Route 53, managed RDS databases and maintained pfSense VPN services.",
+      "Applied Auto Scaling and CloudWatch monitoring to support availability and incident response."
     ],
+    "stack": [
+      "AWS",
+      "ECS",
+      "GitLab",
+      "CodePipeline",
+      "Terraform",
+      "CloudWatch"
+    ],
+    "achievement": "Built the company’s AWS account and cloud infrastructure from the ground up."
   },
   {
-    company: "Quero2Pay",
-    role: "DevOps / Security-Focused Infrastructure",
-    period: "Payments and compliance-sensitive environment",
-    overview:
-      "Infrastructure engineering in a context shaped by PCI DSS, cloud security, runtime protection and business-critical reliability.",
-    points: [
-      "Worked in environments where delivery and security had to coexist cleanly.",
-      "Supported architecture and operations across cloud, edge protection and production robustness.",
-      "Handled infrastructure as a business-critical capability with direct operational consequences.",
+    "company": "Quero 2 Pay",
+    "role": "DevOps Engineer",
+    "period": "Jul 2020 – Dec 2021",
+    "overview": "Nationwide payment technology company that evolved into a holding company.",
+    "points": [
+      "Built automated application delivery with GitLab, AWS CodePipeline, ECS and Docker.",
+      "Implemented WAF protection and managed RDS, pfSense VPN, HashiCorp Vault and monitoring services.",
+      "Migrated Google Cloud services to AWS and supported PCI DSS, PCI PIN and payment network approval activities."
     ],
-  },
+    "stack": [
+      "AWS",
+      "ECS",
+      "Terraform",
+      "Vault",
+      "WAF",
+      "PCI DSS"
+    ],
+    "achievement": "Built the deployment architecture from scratch and helped achieve PCI DSS compliance."
+  }
 ];
 
 export const focusAreas = [
   "AWS",
-  "Kubernetes / EKS",
+  "Microsoft Azure",
+  "Kubernetes / EKS / AKS",
   "ECS",
   "Terraform",
   "CI/CD",
@@ -183,11 +216,14 @@ export const learning = {
     "Payment Card Industry Professional (PCIP)",
     "AWS Monitoring and Reporting",
     "DevOps & Agile Culture",
-    "Profissional DevOps",
+    "Professional DevOps · IGTI · 2021",
+    "Scrum Fundamentals · 2017",
+    "CPRE Foundation Level · IREB · 2016",
   ],
   education: [
-    "MBA in Cyber Security, Forensics, Ethical Hacking and DevSecOps",
-    "Technologist in Systems Analysis and Development",
+    "MBA in Cybersecurity · FIAP · 2023",
+    "Degree in Systems Analysis · FATEC · 2015",
+    "Degree in Marketing and Advertising · FACEF · 2006",
   ],
 };
 
